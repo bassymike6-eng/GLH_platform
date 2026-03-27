@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up - Step 2{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/register.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<div class="bg-overlay"></div>
+<header class="topbar fade-in">
+<div class="brand-text">GLH<br><span>Food & Drink</span></div>
+</header>
+<main class="wrap fade-in">
+<!-- LEFT TEXT (UNCHANGED) -->
+<div class="left-text">
+<h2>Sign up</h2>
+<p>Create your GLH experience</p>
+</div>
+<!-- LINE (UNCHANGED) -->
+<div class="center-line"></div>
+<!-- CARD (ONLY CONTENT CHANGED) -->
+<section class="card">
+<span class="paper-corner tl"></span>
+<span class="paper-corner tr"></span>
+<span class="paper-corner bl"></span>
+<span class="paper-corner br"></span>
+<h1>Create Account</h1>
+<form class="form">
+<!-- EMAIL -->
+<label>Email</label>
+<input type="email" required>
+<!-- PASSWORD -->
+<div class="label-row">
+<div class="label-left">
+<label>Password</label>
+<div class="info-wrap">
+<button type="button" class="info-btn">i</button>
+<div class="tooltip">
+<p class="tip-title">Password requirements</p>
+<ul>
+<li>Minimum 8 characters</li>
+<li>Minimum one letter (a-z or A-Z)</li>
+<li>Minimum one number (0-9)</li>
+<li>Minimum one special character (! @ # $ % & *)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="input-icon">
+<input id="password" type="password" required>
+<button type="button" class="eye-btn" data-target="password">
+<svg viewBox="0 0 24 24" class="eye-svg">
+<path d="M1 12s4-6 11-6 11 6 11 6-4 6-11 6S1 12 1 12z"/>
+<circle cx="12" cy="12" r="3"/>
+</svg>
+</button>
+</div>
+<!-- STRENGTH BAR -->
+<div class="strength-bar">
+<div id="strengthFill"></div>
+</div>
+<!-- CONFIRM -->
+<label>Confirm Password</label>
+<div class="input-icon">
+<input id="confirm" type="password" required>
+<button type="button" class="eye-btn" data-target="confirm">
+<svg viewBox="0 0 24 24" class="eye-svg">
+<path d="M1 12s4-6 11-6 11 6 11 6-4 6-11 6S1 12 1 12z"/>
+<circle cx="12" cy="12" r="3"/>
+</svg>
+</button>
+</div>
+<!-- CHECKBOX -->
+<div class="check-row">
+<input type="checkbox">
+<label>Get GLH updates (optional)</label>
+</div>
+<!-- CAPTCHA PLACEHOLDER -->
+<div class="captcha-box">
+<p>I'm not a robot</p>
+</div>
+<!-- BUTTON -->
+<button class="primary-btn">Next</button>
+</form>
+</section>
+</main>
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/register.js"></script>
+
+{% endblock %}
+ 

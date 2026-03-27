@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLH Platform</title>
+    <title>{% block title%}GLH Platform{% endblock %}</title>
+    <!-- global css for all public pages-->
+    <link rel="stylesheet" href="/static/css/base_html.css">
+
+    {% block page_css%}{% endblock %}
+
 </head>
 <body>
     <h1>My Base Template</h1>
     {% block content %}{% endblock %}
+
+    <script src="/static/js/base_html.js"></script>
+    {% block page_js %}{% endblock %}
 </body>
 </html>
