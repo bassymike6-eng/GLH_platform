@@ -4,7 +4,9 @@
 
 {% block page_css %}
 <link rel="stylesheet" href="/static/css/register.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+    rel="stylesheet">
 
 {% endblock %}
 
@@ -12,87 +14,87 @@
 <div class="bg-overlay"></div>
 
 <div class="layout fade-in">
-<!-- LEFT PANEL -->
-<div class="left-panel">
-<h2>Sign up</h2>
-<p>Create your GLH experience</p>
-</div>
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+        <h2>Sign up</h2>
+        <p>Create your GLH experience</p>
+    </div>
 
-<div class="divider-line"></div>
-<!-- RIGHT -->
-<div class="right-panel">
-<div class="brand-heading">
-<span class="brand-main">GLH</span>
-<span class="brand-sub">Food & Drink</span>
-</div>
-<div class="card">
-<span class="paper-corner tl"></span>
-<span class="paper-corner tr"></span>
-<span class="paper-corner bl"></span>
-<span class="paper-corner br"></span>
-<p class="step">Step 1 of 3</p>
-<h1>Create Account</h1>
-<!-- FIXED PROGRESS -->
-<div class="progress">
-<div class="progress-fill" style="width:0%"></div>
-</div>
-<form method="POST">
-<label>First Name</label>
-<input type="text" name="first_name" required>
-<label>Last Name</label>
-<input type="text" name="last_name" required>
-<label>Date of Birth</label>
-<div class="dob-grid">
-<div class="dd" data-dd>
-<button type="button" class="dd__btn" data-dd-btn>
-<span data-dd-label>Day</span> ▾
-</button>
-<ul class="dd__menu" data-dd-menu>
+    <div class="divider-line"></div>
+    <!-- RIGHT -->
+    <div class="right-panel">
+        <div class="brand-heading">
+            <span class="brand-main">GLH</span>
+            <span class="brand-sub">Food & Drink</span>
+        </div>
+        <div class="card">
+            <span class="paper-corner tl"></span>
+            <span class="paper-corner tr"></span>
+            <span class="paper-corner bl"></span>
+            <span class="paper-corner br"></span>
+            <p class="step">Step 1 of 3</p>
+            <h1>Create Account</h1>
+            <!-- FIXED PROGRESS -->
+            <div class="progress">
+                <div class="progress-fill" style="width:0%"></div>
+            </div>
+            <form method="POST">
+                <label>First Name</label>
+                <input type="text" name="first_name" required>
+                <label>Last Name</label>
+                <input type="text" name="last_name" required>
+                <label>Date of Birth</label>
+                <div class="dob-grid">
+                    <div class="dd" data-dd>
+                        <button type="button" class="dd__btn" data-dd-btn>
+                            <span data-dd-label>Day</span> ▾
+                        </button>
+                        <ul class="dd__menu" data-dd-menu>
 
                             {% for d in range(1,32) %}
-<li data-value="{{d}}">{{d}}</li>
+                            <li data-value="{{d}}">{{d}}</li>
 
                             {% endfor %}
-</ul>
-<input type="hidden" name="dob_day" data-dd-input>
-</div>
-<div class="dd" data-dd>
-<button type="button" class="dd__btn" data-dd-btn>
-<span data-dd-label>Month</span> ▾
-</button>
-<ul class="dd__menu" data-dd-menu>
+                        </ul>
+                        <input type="hidden" name="dob_day" data-dd-input>
+                    </div>
+                    <div class="dd" data-dd>
+                        <button type="button" class="dd__btn" data-dd-btn>
+                            <span data-dd-label>Month</span> ▾
+                        </button>
+                        <ul class="dd__menu" data-dd-menu>
 
                             {% for m in range(1,13) %}
-<li data-value="{{m}}">{{m}}</li>
+                            <li data-value="{{m}}">{{m}}</li>
 
                             {% endfor %}
-</ul>
-<input type="hidden" name="dob_month" data-dd-input>
-</div>
-<div class="dd" data-dd>
-<button type="button" class="dd__btn" data-dd-btn>
-<span data-dd-label>Year</span> ▾
-</button>
-<ul class="dd__menu" data-dd-menu>
+                        </ul>
+                        <input type="hidden" name="dob_month" data-dd-input>
+                    </div>
+                    <div class="dd" data-dd>
+                        <button type="button" class="dd__btn" data-dd-btn>
+                            <span data-dd-label>Year</span> ▾
+                        </button>
+                        <ul class="dd__menu" data-dd-menu>
 
                             {% for y in range(1970,2026) %}
-<li data-value="{{y}}">{{y}}</li>
+                            <li data-value="{{y}}">{{y}}</li>
 
                             {% endfor %}
-</ul>
-<input type="hidden" name="dob_year" data-dd-input>
-</div>
-</div>
-<p class="fineprint">
+                        </ul>
+                        <input type="hidden" name="dob_year" data-dd-input>
+                    </div>
+                </div>
+                <p class="fineprint">
 
                     By clicking next, I agree to GLH
-<a href="#">Privacy Policy</a> and
-<a href="#">Terms of Use</a>.
-</p>
-<button class="primary-btn">Next</button>
-</form>
-</div>
-</div>
+                    <a href="#">Privacy Policy</a> and
+                    <a href="#">Terms of Use</a>.
+                </p>
+                <button class="primary-btn">Next</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
@@ -101,4 +103,3 @@
 <script defer src="/static/js/register.js"></script>
 
 {% endblock %}
- 
