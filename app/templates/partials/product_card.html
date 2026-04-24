@@ -1,0 +1,36 @@
+<div class="product-card"
+    data-id="{{ product.id }}"
+    data-cat="{{ product.category }}"
+    data-popular="{{ product.is_popular }}"
+    onclick="openProductModal(this)">
+    <div class="card-img-wrap">
+        <img src="{{ product.image or '/static/images/placeholder.jpg' }}"
+            alt="{{ product.name }}" class="card-img">
+        <button class="card-heart" onclick="toggleFavourite(event, this)">
+            <i data-lucide="heart"></i>
+        </button>
+    </div>
+    <div class="card-body">
+        <div class="card-vendor">{{ product.shop.shop_name if product.shop else
+            'GLH Vendor' }}</div>
+        <div class="card-name">{{ product.name }}</div>
+        <div class="card-price-row">
+            <span class="card-price">£{{ "%.2f"|format(product.price) }}</span>
+            <span class="card-unit">/ {{ product.unit }}</span>
+        </div>
+    </div>
+    <!-- HIDDEN DATA FOR JS MODAL -->
+    <div class="card-data" style="display:none;">
+        <span class="d-name">{{ product.name }}</span>
+        <span class="d-vendor">{{ product.shop.shop_name if product.shop else
+            'GLH Vendor' }}</span>
+        <span class="d-price">{{ product.price }}</span>
+        <span class="d-unit">{{ product.unit }}</span>
+        <span class="d-category">{{ product.category }}</span>
+        <span class="d-description">{{ product.description or '' }}</span>
+        <span class="d-stock">{{ product.stock }}</span>
+        <span
+            class="d-images">["{{ product.image or '/static/images/placeholder.jpg' }}"]</span>
+        <span class="d-sizes">[]</span>
+    </div>
+</div>

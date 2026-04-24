@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head><meta charset="UTF-8">
+        <style>
+body{font-family:Arial,sans-serif;background:#f4f4f4;margin:0;padding:0;}
+.container{max-width:560px;margin:40px auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+.header{background:#0a0a0a;padding:32px;text-align:center;}
+.header h1{color:#c89b6d;font-size:28px;margin:0;letter-spacing:2px;}
+.body{padding:32px;}
+.banner{padding:16px 20px;border-radius:10px;margin-bottom:24px;text-align:center;font-weight:700;font-size:16px;background:#e8fdf0;color:#1a7f4b;border:1px solid #b0e8c8;}
+p{font-size:14px;color:#555;line-height:1.7;}
+.btn{display:block;width:fit-content;margin:24px auto 0;padding:14px 28px;background:#c89b6d;color:#fff;text-decoration:none;border-radius:999px;font-weight:700;font-size:14px;}
+.footer{background:#f9f9f9;padding:20px 32px;text-align:center;font-size:12px;color:#aaa;border-top:1px solid #eee;}
+</style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header"><h1>GLH</h1><p
+                    style="color:rgba(255,255,255,0.5);font-size:13px;margin:6px 0 0;">Food
+                    & Drink</p></div>
+            <div class="body">
+                <div class="banner">✓ Your Vendor Application has been
+                    Approved!</div>
+                <p>Hello {{ msg.full_name }},</p>
+                <p>Congratulations! Your application to become a vendor on GLH
+                    has been reviewed and approved by our admin team.</p>
+                <p>You can now log in to your account and access your
+                    <strong>Vendor Dashboard</strong> at
+                    <strong>glh.co.uk/vendor</strong> to set up your shop, add
+                    products, and start selling to customers in and around
+                    Milton Keynes.</p>
+                <p>If you have any questions, please contact us at
+                    hello@glh.co.uk.</p>
+                <a href="http://127.0.0.1:5000/vendor" class="btn">Go to Vendor
+                    Dashboard</a>
+            </div>
+            <div class="footer"><p>© 2026 GLH Food & Drink · Chaffron Way,
+                    Milton Keynes, MK6 5LP</p></div>
+        </div>
+    </body>
+</html>

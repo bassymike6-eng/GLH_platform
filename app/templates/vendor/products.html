@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+
+{% block body_class %}dashboard-page vendor-page{% endblock %}
+{% block title %}My Products | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+<link rel="stylesheet" href="/static/css/vendor.css">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="dash-sidebar">
+        <div class="dash-logo">
+            <span>GLH</span>
+            <span class="dash-logo-sub">Vendor Hub</span>
+        </div>
+        <nav class="dash-nav">
+            <a href="/vendor" class="dash-link">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </a>
+            <a href="/vendor/products" class="dash-link active">
+                <i data-lucide="package"></i> Products
+            </a>
+            <a href="/vendor/orders" class="dash-link">
+                <i data-lucide="shopping-bag"></i> Orders
+            </a>
+            <a href="/vendor/notifications" class="dash-link">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="/vendor/settings" class="dash-link">
+                <i data-lucide="settings"></i> Shop Settings
+            </a>
+            <hr style="border-color:rgba(255,255,255,0.07);margin:12px 0;">
+            <a href="/dashboard" class="dash-link">
+                <i data-lucide="user"></i> Customer View
+            </a>
+        </nav>
+        <div class="dash-sidebar-footer">
+            <a href="/logout" class="dash-logout">
+                <i data-lucide="log-out"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="dash-main">
+        <div class="dash-mobile-header">
+            <button id="dashMenuBtn"><i data-lucide="menu"></i></button>
+            <span>My Products</span>
+        </div>
+
+        <div class="dash-content">
+            <div class="dash-section-header" style="margin-bottom:24px;">
+                <h1 class="dash-page-title"
+                    style="margin-bottom:0;">Products</h1>
+                <button class="acc-btn primary" onclick="openAddModal()">
+                    <i data-lucide="plus"></i> Add Product
+                </button>
+            </div>
+
+            <!-- FLASH -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}"
+                style="margin-bottom:16px;padding:12px 16px;border-radius:10px;">{{
+                message }}</div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <!-- PRODUCT LIST -->
+            {% if products %}
+            <div class="vendor-product-list">
+                {% for product in products %}
+                <div class="vendor-product-card">
+                    <img
+                        src="{{ product.image or '/static/images/placeholder.jpg' }}"
+                        alt="{{ product.name }}" class="vendor-product-img">
+                    <div class="vendor-product-info">
+                        <div class="vendor-product-top">
+                            <div>
+                                <strong>{{ product.name }}</strong>
+                                <span class="vendor-product-cat">{{
+                                    product.category }}</span>
+                            </div>
+                            <span class="vendor-product-price">£{{
+                                "%.2f"|format(product.price) }} / {{
+                                product.unit }}</span>
+                        </div>
+                        <p class="vendor-product-desc">{{ product.description or
+                            'No description.' }}</p>
+                        <div class="vendor-product-footer">
+                            <span
+                                class="stock-badge {% if product.stock <= 5 %}low{% endif %}">
+                                <i data-lucide="box"></i>
+                                {{ product.stock }} in stock
+                            </span>
+                            <div class="vendor-product-actions">
+                                <button class="vp-btn edit"
+                                    onclick="openEditModal({{ product.id }}, '{{ product.name }}', '{{ product.description or '' }}', {{ product.price }}, '{{ product.unit }}', '{{ product.category }}', {{ product.stock }})">
+                                    <i data-lucide="pencil"></i> Edit
+                                </button>
+                                <form method="POST"
+                                    action="/vendor/products/delete/{{ product.id }}"
+                                    style="display:inline;">
+                                    <button type="submit" class="vp-btn delete"
+                                        onclick="return confirm('Delete {{ product.name }}?')">
+                                        <i data-lucide="trash-2"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="dash-empty">
+                <i data-lucide="package"></i>
+                <p>No products yet</p>
+                <span>Add your first product to start selling on GLH</span>
+                <button class="acc-btn primary" onclick="openAddModal()"
+                    style="width:auto;margin-top:8px;">
+                    <i data-lucide="plus"></i> Add Product
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
+
+<!-- ADD PRODUCT MODAL -->
+<div class="vp-overlay hidden" id="addOverlay" onclick="closeAddModal()"></div>
+<div class="vp-modal hidden" id="addModal">
+    <div class="vp-modal-header">
+        <h3>Add New Product</h3>
+        <button class="modal-close" onclick="closeAddModal()">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+    <form method="POST" action="/vendor/products/add"
+        enctype="multipart/form-data" class="vp-form">
+        <div class="co-form-row">
+            <div class="co-field">
+                <label>Product Name *</label>
+                <input type="text" name="name" required
+                    placeholder="e.g. Fresh Apples">
+            </div>
+            <div class="co-field">
+                <label>Category</label>
+                <select name="category">
+                    <option value="fruits">🍎 Fruits</option>
+                    <option value="vegetables">🥦 Vegetables</option>
+                    <option value="meats">🥩 Meats</option>
+                    <option value="fish">🐟 Fish</option>
+                    <option value="dairy">🥛 Dairy</option>
+                    <option value="nuts">🥜 Nuts</option>
+                    <option value="spices">🌶️ Spices</option>
+                    <option value="drinks">🧃 Drinks</option>
+                    <option value="frozen">❄️ Frozen</option>
+                </select>
+            </div>
+        </div>
+        <div class="co-field">
+            <label>Description</label>
+            <textarea name="description" rows="3"
+                placeholder="Describe your product..."></textarea>
+        </div>
+        <div class="co-form-row">
+            <div class="co-field">
+                <label>Price (£) *</label>
+                <input type="number" name="price" required
+                    step="0.01" min="0" placeholder="0.00">
+            </div>
+            <div class="co-field">
+                <label>Unit</label>
+                <select name="unit">
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="lb">lb</option>
+                    <option value="each">each</option>
+                    <option value="bunch">bunch</option>
+                    <option value="litre">litre</option>
+                    <option value="pack">pack</option>
+                    <option value="box">box</option>
+                </select>
+            </div>
+        </div>
+        <div class="co-field">
+            <label>Stock Quantity</label>
+            <input type="number" name="stock" value="10" min="0"
+                placeholder="10">
+        </div>
+        <div class="co-field">
+            <label>Product Image</label>
+            <div class="image-upload-wrap" id="addImageWrap">
+                <i data-lucide="image"></i>
+                <span>Click to upload image</span>
+                <input type="file" name="image" accept="image/*"
+                    onchange="previewImage(this, 'addPreview', 'addImageWrap')">
+            </div>
+            <img id="addPreview" class="image-preview hidden" alt="Preview">
+        </div>
+        <div class="vp-form-actions">
+            <button type="button" class="acc-btn ghost"
+                onclick="closeAddModal()">Cancel</button>
+            <button type="submit" class="acc-btn primary">
+                <i data-lucide="plus"></i> Add Product
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- EDIT PRODUCT MODAL -->
+<div class="vp-overlay hidden" id="editOverlay"
+    onclick="closeEditModal()"></div>
+<div class="vp-modal hidden" id="editModal">
+    <div class="vp-modal-header">
+        <h3>Edit Product</h3>
+        <button class="modal-close" onclick="closeEditModal()">
+            <i data-lucide="x"></i>
+        </button>
+    </div>
+    <form method="POST" id="editForm" enctype="multipart/form-data"
+        class="vp-form">
+        <div class="co-form-row">
+            <div class="co-field">
+                <label>Product Name *</label>
+                <input type="text" name="name" id="editName" required>
+            </div>
+            <div class="co-field">
+                <label>Category</label>
+                <select name="category" id="editCategory">
+                    <option value="fruits">🍎 Fruits</option>
+                    <option value="vegetables">🥦 Vegetables</option>
+                    <option value="meats">🥩 Meats</option>
+                    <option value="fish">🐟 Fish</option>
+                    <option value="dairy">🥛 Dairy</option>
+                    <option value="nuts">🥜 Nuts</option>
+                    <option value="spices">🌶️ Spices</option>
+                    <option value="drinks">🧃 Drinks</option>
+                    <option value="frozen">❄️ Frozen</option>
+                </select>
+            </div>
+        </div>
+        <div class="co-field">
+            <label>Description</label>
+            <textarea name="description" id="editDesc" rows="3"></textarea>
+        </div>
+        <div class="co-form-row">
+            <div class="co-field">
+                <label>Price (£) *</label>
+                <input type="number" name="price" id="editPrice"
+                    required step="0.01" min="0">
+            </div>
+            <div class="co-field">
+                <label>Unit</label>
+                <select name="unit" id="editUnit">
+                    <option value="kg">kg</option>
+                    <option value="g">g</option>
+                    <option value="lb">lb</option>
+                    <option value="each">each</option>
+                    <option value="bunch">bunch</option>
+                    <option value="litre">litre</option>
+                    <option value="pack">pack</option>
+                    <option value="box">box</option>
+                </select>
+            </div>
+        </div>
+        <div class="co-field">
+            <label>Stock Quantity</label>
+            <input type="number" name="stock" id="editStock" min="0">
+        </div>
+        <div class="co-field">
+            <label>Product Image (leave blank to keep current)</label>
+            <div class="image-upload-wrap" id="editImageWrap">
+                <i data-lucide="image"></i>
+                <span>Click to replace image</span>
+                <input type="file" name="image" accept="image/*"
+                    onchange="previewImage(this, 'editPreview', 'editImageWrap')">
+            </div>
+            <img id="editPreview" class="image-preview hidden" alt="Preview">
+        </div>
+        <div class="vp-form-actions">
+            <button type="button" class="acc-btn ghost"
+                onclick="closeEditModal()">Cancel</button>
+            <button type="submit" class="acc-btn primary">
+                <i data-lucide="save"></i> Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script>
+function openAddModal() {
+    document.getElementById("addOverlay").classList.remove("hidden");
+    document.getElementById("addModal").classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    if (typeof lucide !== "undefined") lucide.createIcons();
+}
+function closeAddModal() {
+    document.getElementById("addOverlay").classList.add("hidden");
+    document.getElementById("addModal").classList.add("hidden");
+    document.body.style.overflow = "";
+}
+function openEditModal(id, name, desc, price, unit, category, stock) {
+    document.getElementById("editForm").action = `/vendor/products/edit/${id}`;
+    document.getElementById("editName").value = name;
+    document.getElementById("editDesc").value = desc;
+    document.getElementById("editPrice").value = price;
+    document.getElementById("editUnit").value = unit;
+    document.getElementById("editCategory").value = category;
+    document.getElementById("editStock").value = stock;
+    document.getElementById("editOverlay").classList.remove("hidden");
+    document.getElementById("editModal").classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    if (typeof lucide !== "undefined") lucide.createIcons();
+}
+function closeEditModal() {
+    document.getElementById("editOverlay").classList.add("hidden");
+    document.getElementById("editModal").classList.add("hidden");
+    document.body.style.overflow = "";
+}
+function previewImage(input, previewId, wrapId) {
+    const preview = document.getElementById(previewId);
+    const wrap = document.getElementById(wrapId);
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = e => {
+            preview.src = e.target.result;
+            preview.classList.remove("hidden");
+            wrap.style.display = "none";
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+// Mobile sidebar
+const dashMenuBtn = document.getElementById("dashMenuBtn");
+const dashSidebar = document.querySelector(".dash-sidebar");
+if (dashMenuBtn && dashSidebar) {
+    dashMenuBtn.addEventListener("click", () => dashSidebar.classList.toggle("open"));
+}
+if (typeof lucide !== "undefined") lucide.createIcons();
+</script>
+{% endblock %}

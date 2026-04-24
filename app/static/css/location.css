@@ -1,0 +1,320 @@
+/* ===== LOCATION PAGE ===== */
+
+.location-page {
+    background: #0a0a0a;
+}
+
+/* HERO */
+.location-hero {
+    padding: 140px 5% 60px;
+    text-align: center;
+    position: relative;
+}
+
+.location-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at top, rgba(200, 155, 109, 0.1), transparent 60%);
+    pointer-events: none;
+}
+
+.location-hero-inner {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.location-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200, 155, 109, 0.12);
+    border: 1px solid rgba(200, 155, 109, 0.3);
+    color: #c89b6d;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.location-tag svg {
+    width: 14px;
+    height: 14px;
+}
+
+.location-hero h1 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.location-hero p {
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.location-main {
+    padding: 20px 5% 100px;
+}
+
+.location-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* ===== INFO CARDS ===== */
+.location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(200, 155, 109, 0.25);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.info-card:hover {
+    border-color: #c89b6d;
+}
+
+.info-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.info-card-header svg {
+    width: 18px;
+    height: 18px;
+    color: #c89b6d;
+}
+
+.info-card-header h3 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.info-card-body {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.info-card-body p {
+    font-size: 14px;
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+/* DIRECTIONS BUTTON */
+.directions-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: rgba(200, 155, 109, 0.12);
+    border: 1px solid #c89b6d;
+    color: #c89b6d;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+    width: fit-content;
+}
+
+.directions-btn:hover {
+    background: rgba(200, 155, 109, 0.22);
+}
+
+.directions-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* CONTACT LINKS */
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    opacity: 0.8;
+    padding: 8px 0;
+    transition: 0.2s;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.contact-link:last-child {
+    border-bottom: none;
+}
+
+.contact-link:hover {
+    opacity: 1;
+    color: #c89b6d;
+    transform: translateX(4px);
+}
+
+.contact-link svg {
+    width: 16px;
+    height: 16px;
+    color: #c89b6d;
+    flex-shrink: 0;
+}
+
+/* HOURS */
+.hours-body {
+    gap: 0;
+}
+
+.hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    font-size: 13px;
+}
+
+.hours-row:last-of-type {
+    border-bottom: none;
+}
+
+.hours-row .day {
+    opacity: 0.7;
+}
+
+.hours-row .time {
+    font-weight: 500;
+    color: #c89b6d;
+}
+
+.hours-row.weekend .day {
+    opacity: 0.5;
+}
+
+/* TODAY INDICATOR */
+.hours-row.today .day {
+    color: #4ade80;
+    opacity: 1;
+    font-weight: 600;
+}
+
+.hours-row.today .time {
+    color: #4ade80;
+}
+
+.today-status {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.today-status.open {
+    background: rgba(74, 222, 128, 0.1);
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.today-status.closed {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* ===== MAP ===== */
+.location-map-wrap {
+    position: sticky;
+    top: 100px;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid rgba(200, 155, 109, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+#glhMap {
+    width: 100%;
+    height: 580px;
+    z-index: 1;
+}
+
+/* MAP PIN CARD */
+.map-pin-card {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 15, 15, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid #c89b6d;
+    border-radius: 14px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.map-pin-card svg {
+    width: 18px;
+    height: 18px;
+    color: #c89b6d;
+    flex-shrink: 0;
+}
+
+.map-pin-card strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.map-pin-card span {
+    font-size: 11px;
+    opacity: 0.55;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    .location-container {
+        grid-template-columns: 1fr;
+    }
+
+    .location-map-wrap {
+        position: relative;
+        top: 0;
+        order: -1;  /* map above info on mobile */
+    }
+
+    #glhMap {
+        height: 280px;
+    }
+
+    .map-pin-card {
+        bottom: 12px;
+        font-size: 12px;
+    }
+}

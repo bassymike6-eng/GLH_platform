@@ -1,0 +1,111 @@
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="/" class="logo">GLH</a>
+    </div>
+    <div class="nav-center">
+        <div class="nav-item" data-menu="discover"><span data-i18n="discover">Discover</span></div>
+        <div class="nav-item" data-menu="legal"><span data-i18n="legal">Legal</span></div>
+        <div class="nav-item" data-menu="support"><span data-i18n="support">Support</span></div>
+    </div>
+    <div class="nav-right">
+        <div class="icon nav-icon-wrap" id="fav-btn">
+            <i data-lucide="heart"></i>
+            <span class="nav-dot hidden" id="favDot"></span>
+        </div>
+        <div class="icon nav-icon-wrap" id="basket-btn">
+            <i data-lucide="shopping-cart"></i>
+            <span class="nav-dot hidden" id="basketDot"></span>
+        </div>
+        <div class="icon" id="account-btn"><i data-lucide="user"></i></div>
+    </div>
+    <div class="mobile-menu-btn" id="mobile-menu-btn">
+        <i data-lucide="menu"></i>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-header">
+        <span class="mobile-logo">GLH</span>
+        <button id="mobile-close"><i data-lucide="x"></i></button>
+    </div>
+    <div class="mobile-content">
+        <div class="mobile-item" data-expand="discover">
+            <span data-i18n="discover">Discover</span>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="mobile-sub" id="mobile-discover">
+            <a href="{{ url_for('main.about') }}" data-i18n="about">About Us</a>
+            <a href="{{ url_for('main.location') }}" data-i18n="location">Location</a>
+            <hr>
+            <a href="{{ url_for('main.shop') }}" data-i18n="shop">Browse Products</a>
+        </div>
+
+        <div class="mobile-item" data-expand="legal">
+            <span data-i18n="legal">Legal</span>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="mobile-sub" id="mobile-legal">
+            <a href="{{ url_for('main.privacy') }}" data-i18n="privacy">Privacy Policy</a>
+            <a href="{{ url_for('main.terms') }}" data-i18n="terms">Terms & Conditions</a>
+            <a href="{{ url_for('main.returns') }}" data-i18n="returns">Returns Policy</a>
+        </div>
+
+        <div class="mobile-item" data-expand="support">
+            <span data-i18n="support">Support</span>
+            <span class="toggle-icon">+</span>
+        </div>
+        <div class="mobile-sub" id="mobile-support">
+            <a href="{{ url_for('main.contact') }}" data-i18n="contact">Contact Us</a>
+            <a href="{{ url_for('main.faqs') }}" data-i18n="faqs">FAQs</a>
+            <a href="{{ url_for('main.delivery') }}" data-i18n="delivery">Delivery & Services</a>
+        </div>
+    </div>
+
+    <div class="mobile-bottom">
+        <div id="mobile-fav" style="cursor:pointer; display:flex; align-items:center; position:relative;">
+            <i data-lucide="heart"></i>
+            <span class="nav-dot hidden" id="mobileFavDot"></span>
+        </div>
+        <div id="mobile-basket" style="cursor:pointer; display:flex; align-items:center; position:relative;">
+            <i data-lucide="shopping-cart"></i>
+            <span class="nav-dot hidden" id="mobileBasketDot"></span>
+        </div>
+        <div class="icon" id="mobile-account" style="cursor:pointer; display:flex; align-items:center;">
+            <i data-lucide="user"></i>
+        </div>
+    </div>
+</div>
+
+<div class="dropdown-wrapper">
+    <div class="dropdown" id="discover-menu">
+        <div class="dropdown-section">
+            <h4 data-i18n="discover">Discover</h4>
+            <a href="{{ url_for('main.about') }}" data-i18n="about">About Us</a>
+            <a href="{{ url_for('main.location') }}" data-i18n="location">Location</a>
+        </div>
+        <div class="dropdown-section">
+            <h4 data-i18n="shop">Shop</h4>
+            <a href="{{ url_for('main.shop') }}">Browse Products</a>
+        </div>
+    </div>
+
+    <div class="dropdown single" id="legal-menu">
+        <div class="dropdown-section">
+            <h4 data-i18n="legal">Legal</h4>
+            <a href="{{ url_for('main.privacy') }}" data-i18n="privacy">Privacy Policy</a>
+            <a href="{{ url_for('main.terms') }}" data-i18n="terms">Terms & Conditions</a>
+            <a href="{{ url_for('main.returns') }}" data-i18n="returns">Returns Policy</a>
+        </div>
+    </div>
+
+    <div class="dropdown single" id="support-menu">
+        <div class="dropdown-section">
+            <h4 data-i18n="support">Support</h4>
+            <a href="{{ url_for('main.contact') }}" data-i18n="contact">Contact Us</a>
+            <a href="{{ url_for('main.faqs') }}" data-i18n="faqs">FAQs</a>
+            <a href="{{ url_for('main.delivery') }}" data-i18n="delivery">Delivery & Services</a>
+        </div>
+    </div>
+</div>
+
+<div class="nav-overlay"></div>

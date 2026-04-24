@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GLH | Email OTP</title>
+    </head>
+    <body
+        style="font-family: Arial, sans-serif; background: black; padding:20px;">
+        <div
+            style="max-width:500px; margin:auto; background:#ffffff; padding:30px; border-radius:10px; text-align:center;">
+            <h2 style="color:#c89b6d; margin-bottom:10px;">GLH Verification</h2>
+            <p style="color:#333;">Your verification code is:</p>
+            <div
+                style="font-size:28px; letter-spacing:6px; font-weight:bold; margin:20px 0;">
+
+                {{ otp }}
+            </div>
+            <p style="color:#777; font-size:13px;">
+
+                This code expires in 5 minutes.
+            </p>
+            <hr style="margin:20px 0; opacity:0.2;">
+            <p style="font-size:12px; color:#aaa;">
+
+                If you didn't request this, you can ignore this email.
+            </p>
+        </div>
+
+    </body>
+</html>

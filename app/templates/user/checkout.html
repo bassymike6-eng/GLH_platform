@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+
+{% block body_class %}checkout-page{% endblock %}
+{% block title %}Checkout | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/checkout.css">
+{% endblock %}
+
+{% block content %}
+
+{% if not session.get('user_id') %}
+<script>window.location.href = "/auth/login?next=/checkout";</script>
+{% endif %}
+
+<div class="checkout-wrap">
+
+    <!-- PROGRESS BAR -->
+    <div class="checkout-progress">
+        <div class="cp-step active" id="prog-1">
+            <span class="cp-num">1</span>
+            <span class="cp-label">Basket</span>
+        </div>
+        <div class="cp-line"></div>
+        <div class="cp-step" id="prog-2">
+            <span class="cp-num">2</span>
+            <span class="cp-label">Details</span>
+        </div>
+        <div class="cp-line"></div>
+        <div class="cp-step" id="prog-3">
+            <span class="cp-num">3</span>
+            <span class="cp-label">Payment</span>
+        </div>
+    </div>
+
+    <div class="checkout-grid">
+
+        <!-- LEFT PANEL -->
+        <div class="checkout-left">
+
+            <!-- STEP 1: BASKET -->
+            <div class="checkout-step" id="step-1">
+                <h2>
+                    <i data-lucide="shopping-cart"></i>
+                    Your Basket
+                </h2>
+
+                <div id="basket-items-wrap"></div>
+
+                <!-- EMPTY STATE -->
+                <div class="checkout-empty hidden" id="basket-empty">
+                    <i data-lucide="shopping-cart"></i>
+                    <p>Your basket is empty</p>
+                    <a href="/shop" class="co-btn primary">
+                        Browse Products
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- DISCOUNT -->
+                <div class="discount-wrap" id="discount-wrap">
+                    <div class="discount-row">
+                        <input type="text" id="discountInput"
+                            placeholder="Discount code">
+                        <button onclick="applyDiscount()"
+                            class="co-btn secondary">
+                            Apply
+                        </button>
+                    </div>
+                    <p class="discount-msg hidden" id="discountMsg"></p>
+                </div>
+
+                <!-- CLEAR CART -->
+                <button class="clear-cart-btn" id="clearCartBtn"
+                    onclick="clearCart()">
+                    <i data-lucide="trash-2"></i>
+                    Clear Shopping Cart
+                </button>
+
+                <!-- NEXT -->
+                <button class="co-btn primary full" id="toStep2Btn"
+                    onclick="goToStep(2)">
+                    Continue to Details
+                    <i data-lucide="arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- STEP 2: CUSTOMER DETAILS -->
+            <div class="checkout-step hidden" id="step-2">
+                <h2>
+                    <i data-lucide="user"></i>
+                    Your Details
+                </h2>
+
+                <div class="co-form">
+                    <div class="co-form-row">
+                        <div class="co-field">
+                            <label>First Name</label>
+                            <input type="text" id="coFirstName"
+                                placeholder="First name">
+                        </div>
+                        <div class="co-field">
+                            <label>Last Name</label>
+                            <input type="text" id="coLastName"
+                                placeholder="Last name">
+                        </div>
+                    </div>
+
+                    <!-- DELIVERY TYPE -->
+                    <div class="co-field">
+                        <label>Delivery Method</label>
+                        <div class="delivery-options">
+                            <button class="delivery-opt active"
+                                data-type="standard"
+                                onclick="selectDelivery(this, 'standard', 3.95)">
+                                <i data-lucide="package"></i>
+                                <div>
+                                    <strong>Standard Delivery</strong>
+                                    <span>2–3 working days · £3.95</span>
+                                </div>
+                            </button>
+                            <button class="delivery-opt" data-type="nextday"
+                                onclick="selectDelivery(this, 'nextday', 6.95)">
+                                <i data-lucide="zap"></i>
+                                <div>
+                                    <strong>Next Day Delivery</strong>
+                                    <span>Order before 12pm · £6.95</span>
+                                </div>
+                            </button>
+                            <button class="delivery-opt" data-type="collect"
+                                onclick="selectDelivery(this, 'collect', 0)">
+                                <i data-lucide="store"></i>
+                                <div>
+                                    <strong>Click & Collect</strong>
+                                    <span>Chaffron Way, MK6 5LP · Free</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ADDRESS — hidden for collect -->
+                    <div id="addressSection">
+                        <div class="co-field">
+                            <label>Delivery Address</label>
+                            <select id="addressSelect"
+                                onchange="handleAddressSelect()">
+                                <option value="new">Enter a new address</option>
+                            </select>
+                        </div>
+                        <div id="newAddressFields">
+                            <div class="co-form-row">
+                                <div class="co-field">
+                                    <label>Address Line 1</label>
+                                    <input type="text" id="addr1"
+                                        placeholder="123 Main Street">
+                                </div>
+                                <div class="co-field">
+                                    <label>Address Line 2</label>
+                                    <input type="text" id="addr2"
+                                        placeholder="Flat, suite (optional)">
+                                </div>
+                            </div>
+                            <div class="co-form-row">
+                                <div class="co-field">
+                                    <label>City</label>
+                                    <input type="text" id="city"
+                                        placeholder="Milton Keynes">
+                                </div>
+                                <div class="co-field">
+                                    <label>Postcode</label>
+                                    <input type="text" id="postcode"
+                                        placeholder="MK6 5LP">
+                                </div>
+                            </div>
+                            <label class="save-addr-label">
+                                <input type="checkbox" id="saveAddress">
+                                Save this address to my account
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="co-step-btns">
+                    <button class="co-btn ghost" onclick="goToStep(1)">
+                        <i data-lucide="arrow-left"></i>
+                        Back
+                    </button>
+                    <button class="co-btn primary" onclick="goToStep(3)">
+                        Continue to Payment
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: PAYMENT -->
+            <div class="checkout-step hidden" id="step-3">
+                <h2>
+                    <i data-lucide="wallet"></i>
+                    Payment
+                </h2>
+
+                <!-- WALLET -->
+                <div class="wallet-pay-card">
+                    <div class="wallet-pay-top">
+                        <div class="wallet-icon">
+                            <i data-lucide="wallet"></i>
+                        </div>
+                        <div>
+                            <strong>GLH Wallet</strong>
+                            <span>Your virtual balance</span>
+                        </div>
+                        <div class="wallet-balance-display">
+                            <span>Balance</span>
+                            <strong id="walletDisplayAmount">£50.00</strong>
+                        </div>
+                    </div>
+
+                    <div class="wallet-pay-info" id="walletPayInfo">
+                        <!-- populated by JS -->
+                    </div>
+                </div>
+
+                <div class="co-step-btns">
+                    <button class="co-btn ghost" onclick="goToStep(2)">
+                        <i data-lucide="arrow-left"></i>
+                        Back
+                    </button>
+                    <button class="co-btn primary" id="payBtn"
+                        onclick="processPayment()">
+                        <i data-lucide="lock"></i>
+                        Pay Now
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL: ORDER SUMMARY -->
+        <div class="checkout-right">
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+
+                <div class="summary-items" id="summary-items"></div>
+
+                <div class="summary-breakdown">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="sum-subtotal">£0.00</span>
+                    </div>
+                    <div class="summary-row" id="sum-discount-row"
+                        style="display:none">
+                        <span>Discount (25%)</span>
+                        <span id="sum-discount"
+                            class="discount-val">-£0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span id="sum-delivery">£3.95</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>VAT (20%)</span>
+                        <span id="sum-vat">£0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="sum-total">£0.00</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/checkout.js"></script>
+{% endblock %}

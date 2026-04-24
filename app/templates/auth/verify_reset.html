@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Verify OTP | GLH{% endblock %}
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/forgot-password.css">
+{% endblock %}
+{% block content %}
+<div class="bg-overlay"></div>
+<div class="layout fade-in">
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+        <h2>Verify</h2>
+        <p>Secure your GLH account</p>
+    </div>
+    <div class="divider-line"></div>
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+        <div class="brand-heading">
+            <span class="brand-main">GLH</span>
+            <span class="brand-sub">Food & Drink</span>
+        </div>
+        <div class="card">
+            <!-- BACK -->
+            <a href="{{ url_for('auth.forgot') }}" class="back-btn"
+                id="backBtn">
+                <span class="arrow">←</span>
+                Back
+            </a>
+            <!-- ICON -->
+            <div class="icon-wrap">
+                <img
+                    src="/static/images/verify_reset.png"
+                    class="icon-img">
+            </div>
+            <h1>Verify OTP</h1>
+            <p class="otp-text">
+                Enter the 6-digit code sent to
+                <strong>{{ session.get('reset_email') }}</strong>
+            </p>
+            <!-- FLASH -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alerts">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <!-- FORM -->
+            <form method="POST">
+                <input type="hidden" name="otp" id="otpCombined">
+                <!-- OTP INPUTS -->
+                <div class="otp-inputs">
+                    <input type="text" maxlength="1">
+                    <input type="text" maxlength="1">
+                    <input type="text" maxlength="1">
+                    <input type="text" maxlength="1">
+                    <input type="text" maxlength="1">
+                    <input type="text" maxlength="1">
+                </div>
+                <!-- RESEND -->
+                <p class="resend">
+                    <span id="resendBtn">Resend code</span>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- LOADER -->
+<div class="otp-loader" id="otpLoader">
+    <div class="loader-content">
+        <div class="spinner"></div>
+        <p class="loader-text">Verifying...</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/register.js"></script>
+{% endblock %}

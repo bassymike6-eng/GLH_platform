@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Signup | GLH {% endblock %} <!--preparing for babel-->
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/register.css">
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap">
+
+{% endblock %}
+
+{% block content %}
+<div class="bg-overlay"></div>
+
+<div class="layout fade-in">
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+        <h2>Sign Up</h2>
+        <p>Create your GLH experience</p>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <!--RIGHT PANEL -->
+    <div class="right-panel">
+        <div class="brand-heading">
+            <span class="brand-main">GLH</span>
+            <span class="brand-sub">Food & Drink</span>
+        </div>
+        <div class="card">
+            <span class="paper-corner tl"></span>
+            <span class="paper-corner tr"></span>
+            <span class="paper-corner bl"></span>
+            <span class="paper-corner br"></span>
+            <p class="form-label">Sign up</p>
+
+            <a href="{{ url_for('auth.signup', back=1) }}" class="back-btn"
+                aria-label="Back to previous step" id="backBtn">
+                <span class="arrow">←</span>
+                Back
+            </a>
+            <p class="step">Step 2 of 3</p>
+            <h1>Create Account</h1>
+            <!-- FLASH MESSAGES -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alerts">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <!--FIXED PROGRESS -->
+            <div class="progress">
+                <div class="progress-fill" data-progress="50"></div>
+            </div>
+            <form method="POST" action="{{ url_for('auth.signup') }}">
+
+                <!-- WHAT FLASK USES FOR STEP REDIRECTION-->
+                <input type="hidden" name="step" value="2">
+
+                <!--EMAIL-->
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" required
+                    placeholder="name@example.com" autocomplete="email"
+                    value="{{ session.get('signup', {}).get('email', '') }}">
+                <!--PASSWORD -->
+                <div class="label-row">
+                    <div class="label-left">
+                        <label for="password"
+                            class="inline-label">Password</label>
+                        <div class="info-wrap">
+                            <button class="info-btn" type="button"
+                                id="pwInfoBtn"
+                                aria-label="password requirements">
+                                i
+                            </button>
+                            <div class="tooltip" id="pwTooltip"
+                                aria-hidden="true">
+                                <p class="tip-title">Password requirements</p>
+                                <ul>
+                                    <li>Minimum 8 characters</li>
+                                    <li>Minimum one letter (a-z or A-Z)</li>
+                                    <li>Minimum one number (0-9)</li>
+                                    <li>Minimum one special character (! @ # % &
+                                        * etc.)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-icon password-field">
+                    <input id="password" name="password" type="password"
+                        autocomplete="new-password" required
+                        placeholder="***********" />
+                    <button type="button" class="eye-btn" data-target="password"
+                        aria-label="Show or hide password">
+                        <svg viewBox="0 0 24 24" class="eye-svg">
+                            <path
+                               class="eye-outline"  d="M1 12s4-6 11-6 11 6 11 6-4 6-11 6S1 12 1 12z" />
+                            <circle cx="12" cy="12" r="3" />
+
+                            <!-- EYE SLASH -->
+                            <line class="eye-slash" x1="4" y1="20" x2="20" y2="4" />
+                        </svg>
+                    </button>
+                </div>
+                <!--CONFIRM PASSWORD -->
+                <label for="confirm_password">Confirm Password</label>
+                <div class="input-icon">
+                    <input id="confirm" name="confirm_password" type="password"
+                        autocomplete="new-password" required
+                        placeholder="***********" />
+                    <button type="button" class="eye-btn" data-target="confirm">
+                        <svg viewBox="0 0 24 24" class="eye-svg">
+                            <path
+                               class="eye-outline"  d="M1 12s4-6 11-6 11 6 11 6-4 6-11 6S1 12 1 12z" />
+                            <circle cx="12" cy="12" r="3" />
+
+                            <!-- EYE SLASH -->
+                            <line class="eye-slash" x1="4" y1="20" x2="20" y2="4" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- CHECKBOX -->
+                <div class="check-row">
+                    <input id="marketing_opt_in" name="marketing_opt_in"
+                        type="checkbox" value="yes" />
+                    <label for="marketing_opt_in">Get GLH Updates
+                        (optional)</label>
+                </div>
+
+                <!--CAPTCHA PLACEHOLDER -->
+                <div class="captcha-box">
+                    <div class="captcha-inner">
+                        <div class="captcha-scale">
+                            <div class="g-recaptcha" data-sitekey="6LcWEagsAAAAAJIQryXvJSQFIDLW4ruvFHSSDWGG" data-callback="captchaVerified"></div>
+                        </div>
+                    </div>        
+                </div>
+                <!-- BUTTON -->
+                <button id="nextBtn" type="submit" class="primary-btn"
+                    disabled>Next</button>
+                <p class="alt">
+                    Already have an account?
+                    <a href="{{ url_for('auth.login') }}">Login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/register.js"></script>
+{% endblock %}

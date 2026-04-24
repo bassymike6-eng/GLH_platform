@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block body_class %}returns-page{% endblock %}
+{% block title %}Returns Policy | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/returns.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="returns-bg"></div>
+
+<div class="returns-layout">
+
+    <!-- LEFT NAV -->
+    <aside class="returns-nav">
+        <h2>Returns Policy</h2>
+        <ul>
+            <li><a href="#s1" class="rnav-link active">1. Overview</a></li>
+            <li><a href="#s2" class="rnav-link">2. Perishable Items</a></li>
+            <li><a href="#s3" class="rnav-link">3. Non-Perishable Items</a></li>
+            <li><a href="#s4" class="rnav-link">4. Damaged Orders</a></li>
+            <li><a href="#s5" class="rnav-link">5. Missing Items</a></li>
+            <li><a href="#s6" class="rnav-link">6. Refunds</a></li>
+            <li><a href="#s7" class="rnav-link">7. Contact Us</a></li>
+        </ul>
+        <div class="returns-updated">
+            <i data-lucide="calendar"></i>
+            Last updated: April 2026
+        </div>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <main class="returns-content">
+
+        <div class="returns-intro">
+            <span class="returns-tag">Policy</span>
+            <h1>Returns & Refund Policy</h1>
+            <p>At GLH we want every order to reach you in perfect condition. We
+                understand that sometimes things go wrong and we are committed
+                to resolving any issues as quickly and fairly as possible.
+                Please read this policy carefully so you know your rights.</p>
+        </div>
+
+        <section id="s1" class="returns-section">
+            <h2>1. Overview</h2>
+            <p>Because GLH is a marketplace for fresh, local, and perishable
+                food products, our returns policy differs from standard retail.
+                The nature of food means we cannot accept returns in the way a
+                clothing or electronics retailer might. However we take quality
+                and customer satisfaction seriously and will always work to make
+                things right.</p>
+            <div class="returns-highlight">
+                <i data-lucide="info"></i>
+                <p>If you have an issue with your order, please contact us
+                    within <strong>48 hours</strong> of receiving it at <a
+                        href="mailto:hello@glh.co.uk">hello@glh.co.uk</a>.
+                    Claims made after this window may not be eligible for a
+                    refund.</p>
+            </div>
+        </section>
+
+        <section id="s2" class="returns-section">
+            <h2>2. Perishable Items</h2>
+            <p>Due to the nature of fresh and perishable food products —
+                including fruits, vegetables, meats, fish, dairy, and bakery
+                items — we are unable to accept physical returns of these goods
+                once delivered.</p>
+            <p>However if a perishable item arrives in an unsatisfactory
+                condition, damaged, spoiled, or significantly different from
+                what was described, we will offer a full refund or replacement
+                at no additional cost. You do not need to return the item.</p>
+            <p>To process a claim on a perishable item please contact us within
+                48 hours with:</p>
+            <ul class="returns-list">
+                <li>Your order reference number</li>
+                <li>A description of the issue</li>
+                <li>Photos of the affected item where possible</li>
+            </ul>
+        </section>
+
+        <section id="s3" class="returns-section">
+            <h2>3. Non-Perishable Items</h2>
+            <p>Non-perishable products such as dried goods, spices, nuts, drinks
+                in sealed packaging, and similar items may be returned within
+                <strong>14 days</strong> of delivery provided they are:</p>
+            <ul class="returns-list">
+                <li>Unused and in their original condition</li>
+                <li>In original undamaged packaging</li>
+                <li>Accompanied by proof of purchase</li>
+            </ul>
+            <p>To arrange a return of a non-perishable item please contact us at
+                hello@glh.co.uk. We will provide you with a returns address and
+                instructions. Return postage costs are the responsibility of the
+                customer unless the item is faulty or was sent in error.</p>
+        </section>
+
+        <section id="s4" class="returns-section">
+            <h2>4. Damaged Orders</h2>
+            <p>If your order arrives damaged — whether the packaging is crushed,
+                items have leaked, or products have been broken in transit —
+                please do not dispose of the items before contacting us.</p>
+            <p>We ask that you contact us within 48 hours of delivery with your
+                order reference and photos of the damage. Based on the nature of
+                the damage we will offer either a full refund, a partial refund,
+                or a replacement order dispatched as soon as possible.</p>
+            <p>Damage claims are taken seriously and we report repeated transit
+                damage issues to our delivery partners to prevent
+                recurrence.</p>
+        </section>
+
+        <section id="s5" class="returns-section">
+            <h2>5. Missing Items</h2>
+            <p>If items are missing from your order please check your dispatch
+                confirmation email first — in some cases items from different
+                vendors may be sent in separate packages and arrive at different
+                times.</p>
+            <p>If an item is confirmed missing and not arriving in a separate
+                shipment, please contact us within 48 hours. We will investigate
+                with the relevant vendor and either dispatch the missing item or
+                issue a refund for it.</p>
+            <p>GLH keeps detailed dispatch records and will work quickly to
+                resolve any missing item claims.</p>
+        </section>
+
+        <section id="s6" class="returns-section">
+            <h2>6. Refunds</h2>
+            <p>Once a refund has been approved it will be processed within
+                <strong>5 working days</strong>. Refunds are returned to the
+                original payment method used at checkout. Processing times may
+                vary depending on your bank or card provider.</p>
+            <div class="returns-table">
+                <div class="rt-row header">
+                    <span>Situation</span>
+                    <span>Outcome</span>
+                    <span>Timeframe</span>
+                </div>
+                <div class="rt-row">
+                    <span>Damaged perishable item</span>
+                    <span>Full refund or replacement</span>
+                    <span>5 working days</span>
+                </div>
+                <div class="rt-row">
+                    <span>Missing item</span>
+                    <span>Replacement or refund</span>
+                    <span>5 working days</span>
+                </div>
+                <div class="rt-row">
+                    <span>Non-perishable return</span>
+                    <span>Refund on receipt</span>
+                    <span>5 working days</span>
+                </div>
+                <div class="rt-row">
+                    <span>Order not delivered</span>
+                    <span>Full refund</span>
+                    <span>5 working days</span>
+                </div>
+                <div class="rt-row">
+                    <span>Cancelled order</span>
+                    <span>Full refund</span>
+                    <span>3 working days</span>
+                </div>
+            </div>
+            <p>If you have not received your refund within the timeframe stated
+                above please contact us and we will investigate immediately.</p>
+        </section>
+
+        <section id="s7" class="returns-section">
+            <h2>7. Contact Us</h2>
+            <p>For all returns, refund requests, or order issues please get in
+                touch with our team. We aim to respond to all queries within 24
+                hours Monday to Friday.</p>
+            <div class="returns-contact">
+                <a href="mailto:hello@glh.co.uk" class="rc-item">
+                    <i data-lucide="mail"></i>
+                    <div>
+                        <strong>Email Us</strong>
+                        <span>hello@glh.co.uk</span>
+                    </div>
+                </a>
+                <a href="tel:+441908000000" class="rc-item">
+                    <i data-lucide="phone"></i>
+                    <div>
+                        <strong>Call Us</strong>
+                        <span>+44 1908 000 000</span>
+                    </div>
+                </a>
+                <a href="{{ url_for('main.contact') }}" class="rc-item">
+                    <i data-lucide="message-circle"></i>
+                    <div>
+                        <strong>Contact Form</strong>
+                        <span>Submit a query online</span>
+                    </div>
+                </a>
+            </div>
+            <p class="returns-address">GLH Food & Drink · Chaffron Way · Milton
+                Keynes · MK6 5LP · United Kingdom</p>
+        </section>
+
+    </main>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/returns.js"></script>
+{% endblock %}

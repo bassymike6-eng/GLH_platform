@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block body_class %}dashboard-page{% endblock %}
+{% block title %}My Addresses | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+{% endblock %}
+
+{% block content %}
+
+{% if not session.get('user_id') %}
+<script>window.location.href = "/auth/login";</script>
+{% endif %}
+
+<div class="dashboard-layout">
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="dash-sidebar">
+        <div class="dash-logo">
+            <span>GLH</span>
+            <span class="dash-logo-sub">My Account</span>
+        </div>
+        <nav class="dash-nav">
+            <a href="/dashboard" class="dash-link">
+                <i data-lucide="layout-dashboard"></i>
+                Dashboard
+            </a>
+            <a href="/dashboard/orders" class="dash-link">
+                <i data-lucide="package"></i>
+                Orders
+            </a>
+            <a href="/dashboard/addresses" class="dash-link active">
+                <i data-lucide="map-pin"></i>
+                Addresses
+            </a>
+            <a href="/contact#vendor" class="dash-link">
+                <i data-lucide="store"></i>
+                Become a Vendor
+            </a>
+        </nav>
+        <div class="dash-sidebar-footer">
+            <a href="/logout" class="dash-logout">
+                <i data-lucide="log-out"></i>
+                Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="dash-main">
+        <div class="dash-mobile-header">
+            <button id="dashMenuBtn">
+                <i data-lucide="menu"></i>
+            </button>
+            <span>Addresses</span>
+        </div>
+
+        <div class="dash-content">
+            <h1 class="dash-page-title">Shipping Addresses</h1>
+
+            <div id="address-list"></div>
+
+            <div class="dash-empty hidden" id="address-empty">
+                <i data-lucide="map-pin"></i>
+                <p>No saved addresses</p>
+                <span>Addresses are saved when you complete a checkout.</span>
+            </div>
+
+            <!-- ADD ADDRESS FORM -->
+            <div class="address-form-wrap">
+                <h3>Add New Address</h3>
+                <form id="addressForm">
+                    <div class="form-row-2">
+                        <div class="settings-group">
+                            <label>Address Line 1</label>
+                            <input type="text" id="addr1"
+                                placeholder="123 Main Street" required>
+                        </div>
+                        <div class="settings-group">
+                            <label>Address Line 2</label>
+                            <input type="text" id="addr2"
+                                placeholder="Flat, suite, etc.">
+                        </div>
+                    </div>
+                    <div class="form-row-2">
+                        <div class="settings-group">
+                            <label>City</label>
+                            <input type="text" id="city"
+                                placeholder="Milton Keynes" required>
+                        </div>
+                        <div class="settings-group">
+                            <label>Postcode</label>
+                            <input type="text" id="postcode"
+                                placeholder="MK6 5LP" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="acc-btn primary">
+                        <i data-lucide="plus"></i>
+                        Save Address
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/dashboard.js"></script>
+{% endblock %}

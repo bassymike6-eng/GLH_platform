@@ -1,0 +1,268 @@
+.delivery-page {
+  background: #0a0a0a;
+}
+
+.delivery-bg {
+  position: fixed;
+  inset: 0;
+  background: url("/static/images/home_page.jpg") center/cover no-repeat;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.delivery-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 120px 40px 80px;
+  gap: 60px;
+}
+
+/* LEFT NAV */
+.delivery-nav {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.delivery-nav h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: white;
+}
+
+.delivery-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dnav-link {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0.55;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+}
+
+.dnav-link:hover {
+  opacity: 0.9;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dnav-link.active {
+  opacity: 1;
+  color: #c89b6d;
+  border-left-color: #c89b6d;
+  background: rgba(200, 155, 109, 0.08);
+}
+
+/* RIGHT CONTENT */
+.delivery-content {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.delivery-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.delivery-tag {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #c89b6d;
+}
+
+.delivery-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.delivery-section p {
+  font-size: 15px;
+  line-height: 1.8;
+  opacity: 0.75;
+}
+
+.delivery-section a {
+  color: #c89b6d;
+  text-decoration: underline;
+}
+
+/* CHARGE CARDS */
+.delivery-charges {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 8px 0;
+}
+
+.charge-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(200, 155, 109, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s;
+}
+
+.charge-card:hover {
+  border-color: #c89b6d;
+}
+
+.charge-card.featured {
+  border-color: #c89b6d;
+  background: rgba(200, 155, 109, 0.08);
+}
+
+.charge-card svg {
+  width: 22px;
+  height: 22px;
+  color: #c89b6d;
+}
+
+.charge-card strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.charge-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #c89b6d;
+}
+
+.charge-desc {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+/* TABLE */
+.delivery-table {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  margin: 8px 0;
+}
+
+.dt-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 14px 20px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dt-row:last-child {
+  border-bottom: none;
+}
+
+.dt-row.header {
+  background: rgba(200, 155, 109, 0.1);
+  font-weight: 600;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* COLLECT INFO */
+.collect-info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(200, 155, 109, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.collect-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.collect-item svg {
+  width: 18px;
+  height: 18px;
+  color: #c89b6d;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.collect-item strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.collect-item span {
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .delivery-layout {
+    grid-template-columns: 1fr;
+    padding: 100px 20px 60px;
+    gap: 30px;
+  }
+
+  .delivery-nav {
+    position: relative;
+    top: 0;
+  }
+
+  .delivery-nav ul {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .dnav-link {
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .dnav-link.active {
+    border-left: none;
+    border-bottom-color: #c89b6d;
+  }
+
+  .delivery-charges {
+    grid-template-columns: 1fr;
+  }
+
+  .dt-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+
+  .dt-row span:last-child {
+    grid-column: 1 / -1;
+    opacity: 0.5;
+    font-size: 12px;
+  }
+}

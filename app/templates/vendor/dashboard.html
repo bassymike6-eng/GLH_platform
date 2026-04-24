@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block body_class %}dashboard-page vendor-page{% endblock %}
+{% block title %}Vendor Dashboard | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+<link rel="stylesheet" href="/static/css/vendor.css">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="dash-sidebar">
+        <div class="dash-logo">
+            <button class="sidebar-close-btn" id="sidebarCloseBtn">   <!-- add in every dashobar templste -->
+                <i data-lucide="x"></i>
+            </button>
+            <span>GLH</span>
+            <span class="dash-logo-sub">Vendor Hub</span>
+        </div>
+        <nav class="dash-nav">
+            <a href="/vendor" class="dash-link active">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </a>
+            <a href="/vendor/products" class="dash-link">
+                <i data-lucide="package"></i> Products
+            </a>
+            <a href="/vendor/orders" class="dash-link">
+                <i data-lucide="shopping-bag"></i> Orders
+                {% if pending_count > 0 %}<span class="nav-badge">{{
+                    pending_count }}</span>{% endif %}
+            </a>
+            <a href="/vendor/notifications" class="dash-link">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="/vendor/settings" class="dash-link">
+                <i data-lucide="settings"></i> Shop Settings
+            </a>
+            <hr style="border-color:rgba(255,255,255,0.07); margin:12px 0;">
+            <a href="/dashboard" class="dash-link">
+                <i data-lucide="user"></i> Customer View
+            </a>
+        </nav>
+        <div class="dash-sidebar-footer">
+            <a href="/logout" class="dash-logout">
+                <i data-lucide="log-out"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="dash-main">
+        <div class="dash-mobile-header">
+            <button id="dashMenuBtn"><i data-lucide="menu"></i></button>
+            <span>Vendor Dashboard</span>
+        </div>
+
+        <div class="dash-content">
+
+            {% if not shop %}
+            <!-- SHOP SETUP -->
+            <div class="vendor-setup">
+                <div class="vendor-setup-icon"><i data-lucide="store"></i></div>
+                <h1>Welcome to GLH Vendor Hub</h1>
+                <p>You're approved as a vendor. Set up your shop to start
+                    selling.</p>
+                <form method="POST" action="/vendor/setup"
+                    class="vendor-setup-form">
+                    <div class="settings-group">
+                        <label>Shop Name</label>
+                        <input type="text" name="shop_name" required
+                            placeholder="e.g. Bassy's Fresh Produce">
+                    </div>
+                    <div class="settings-group">
+                        <label>Shop Description</label>
+                        <input type="text" name="shop_description"
+                            placeholder="Tell customers about your shop">
+                    </div>
+                    <button type="submit" class="acc-btn primary">
+                        <i data-lucide="check"></i> Create My Shop
+                    </button>
+                </form>
+            </div>
+            {% else %}
+
+            <!-- DASHBOARD -->
+            <div class="dash-welcome">
+                <div>
+                    <h1>{{ shop.shop_name }} 🏪</h1>
+                    <p class="dash-email">{{ shop.shop_description or
+                        'Welcome to your vendor dashboard.' }}</p>
+                </div>
+                <div class="dash-wallet-badge">
+                    <i data-lucide="trending-up"></i>
+                    <div>
+                        <span>Total Earnings</span>
+                        <strong>£{{ "%.2f"|format(earnings) }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="dash-stats">
+                <div class="dash-stat">
+                    <i data-lucide="package"></i>
+                    <div>
+                        <strong>{{ products|length }}</strong>
+                        <span>Products</span>
+                    </div>
+                </div>
+                <div class="dash-stat">
+                    <i data-lucide="clock"></i>
+                    <div>
+                        <strong>{{ pending_count }}</strong>
+                        <span>Pending Orders</span>
+                    </div>
+                </div>
+                <div class="dash-stat">
+                    <i data-lucide="check-circle"></i>
+                    <div>
+                        <strong>{{ accepted_count }}</strong>
+                        <span>Accepted Orders</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUICK ACTIONS -->
+            <div class="dash-section">
+                <div class="dash-section-header">
+                    <h2>Quick Actions</h2>
+                </div>
+                <div class="vendor-actions">
+                    <a href="/vendor/products" class="vendor-action-card">
+                        <i data-lucide="plus-circle"></i>
+                        <strong>Add Product</strong>
+                        <span>List a new product</span>
+                    </a>
+                    <a href="/vendor/orders" class="vendor-action-card">
+                        <i data-lucide="shopping-bag"></i>
+                        <strong>View Orders</strong>
+                        <span>{{ pending_count }} pending</span>
+                    </a>
+                    <a href="/vendor/settings" class="vendor-action-card">
+                        <i data-lucide="settings"></i>
+                        <strong>Shop Settings</strong>
+                        <span>Edit shop details</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/dashboard.js"></script>
+{% endblock %}

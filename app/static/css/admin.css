@@ -1,0 +1,145 @@
+.admin-user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-user-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 14px 18px;
+  flex-wrap: wrap;
+  transition: border-color 0.2s;
+}
+
+.admin-user-row:hover {
+  border-color: rgba(200, 155, 109, 0.3);
+}
+
+.admin-user-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-user-info strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.admin-user-info span {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.admin-user-badges {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.role-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+.role-badge.customer {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.role-badge.vendor {
+  background: rgba(200, 155, 109, 0.15);
+  color: #c89b6d;
+  border: 1px solid rgba(200, 155, 109, 0.3);
+}
+
+.role-badge.admin {
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.admin-user-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* MESSAGES */
+.admin-msg-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-msg-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s;
+}
+
+.admin-msg-card.unread {
+  border-color: rgba(200, 155, 109, 0.3);
+  background: rgba(200, 155, 109, 0.04);
+}
+
+.admin-msg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.admin-msg-header strong {
+  font-size: 15px;
+  font-weight: 600;
+  display: block;
+}
+
+.admin-msg-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.admin-msg-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.admin-msg-meta svg {
+  width: 13px;
+  height: 13px;
+  color: #c89b6d;
+}
+
+.admin-msg-body {
+  font-size: 14px;
+  line-height: 1.7;
+  opacity: 0.75;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border-left: 3px solid rgba(200, 155, 109, 0.4);
+}
+
+.admin-msg-actions {
+  display: flex;
+  gap: 10px;
+}

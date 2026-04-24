@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Signup | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/register.css">
+<link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap"
+    rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<div class="bg-overlay"></div>
+<div class="layout fade-in">
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+        <h2>Sign up</h2>
+        <p>Almost there...</p>
+    </div>
+    <div class="divider-line"></div>
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+        <div class="brand-heading">
+            <span class="brand-main">GLH</span>
+            <span class="brand-sub">Food & Drink</span>
+        </div>
+        <div class="card">
+            <!-- BACK BUTTON -->
+            <a href="{{ url_for('auth.signup_step2') }}" class="back-btn">←
+                Back</a>
+            <span class="paper-corner tl"></span>
+            <span class="paper-corner tr"></span>
+            <span class="paper-corner bl"></span>
+            <span class="paper-corner br"></span>
+            <p class="form-label">Sign up</p>
+            <p class="step">Step 3 of 3</p>
+            <h1>Verify Email</h1>
+            <!-- FLASH -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+            <div class="alerts">
+
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+
+                {% endfor %}
+            </div>
+
+            {% endif %}
+
+            {% endwith %}
+            <!-- PROGRESS -->
+            <div class="progress">
+                <div class="progress-fill" style="width:100%"></div>
+            </div>
+            <!-- CONTENT -->
+            <p class="otp-text">
+
+                Sent a verification code to
+                <strong>{{ session['signup']['email'] }}</strong>
+            </p>
+            <p class="change-email">
+
+                Not your email?
+                <a href="{{ url_for('auth.signup_step2') }}">Change it</a>
+            </p>
+            <!-- SEND BUTTON -->
+            <button type="button" id="sendCodeBtn" {% if otp_sent %}style="display:none;"{% endif %} class="primary-btn">
+
+                Send Code
+            </button>
+            <!-- OTP SECTION -->
+            <form method="POST" action="{{ url_for('auth.verify') }}"
+                id="otpForm">
+                <div  id="otpWrapper" class="otp-wrapper {% if otp_sent %}show{% endif %}">
+                    <div class="otp-inputs">
+                        <input type="text" maxlength="1" name="otp1">
+                        <input type="text" maxlength="1" name="otp2">
+                        <input type="text" maxlength="1" name="otp3">
+                        <input type="text" maxlength="1" name="otp4">
+                        <input type="text" maxlength="1" name="otp5">
+                        <input type="text" maxlength="1" name="otp6">
+                    </div>
+                    <input type="hidden" name="otp" id="otpCombined">
+                    <p class="resend">
+
+                        Didn't receive it?
+                        <span id="resendBtn" class="disabled">Resend (30s)</span>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="otpLoader" class="otp-loader">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <p class="loader-text">GLH FOOD & Drink</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/register.js"></script>
+
+{% endblock %}

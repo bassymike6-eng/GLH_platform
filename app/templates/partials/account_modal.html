@@ -1,0 +1,208 @@
+<div class="account-modal" id="account-modal">
+
+    <!-- MAIN PANEL -->
+    <div class="account-panel" id="panel-main">
+        <div class="account-header">
+            <h3 data-i18n="my_account">My Account</h3>
+            <button class="close-btn" id="close-account">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="account-content">
+            {% if session.get('user_id') %}
+            <div class="account-user-info">
+                <div class="account-avatar">
+                    <i data-lucide="user"></i>
+                </div>
+                <div>
+                    <strong>{{ session.get('user_name', 'GLH Member')
+                        }}</strong>
+                    <span>{{ session.get('email', '') }}</span>
+                </div>
+            </div>
+            <hr>
+            <button class="account-menu-btn" onclick="switchPanel('orders')">
+                <i data-lucide="package"></i>
+                <span data-i18n="orders">Orders</span>
+                <i data-lucide="chevron-right" class="menu-arrow"></i>
+            </button>
+            {% if session.get('user_id') %}
+            <button class="account-menu-btn"
+                onclick="window.location.href='/vendor'">
+                <i data-lucide="store"></i>
+                <span data-i18n="dashboard">Dashboard</span>
+                <i data-lucide="chevron-right" class="menu-arrow"></i>
+            </button>
+            {% endif %}
+            <button class="account-menu-btn" onclick="switchPanel('settings')">
+                <i data-lucide="settings"></i>
+                <span data-i18n="settings">Settings</span>
+                <i data-lucide="chevron-right" class="menu-arrow"></i>
+            </button>
+            <button class="account-menu-btn" onclick="switchPanel('language')">
+                <i data-lucide="globe"></i>
+                <span data-i18n="language">Language</span>
+                <i data-lucide="chevron-right" class="menu-arrow"></i>
+            </button>
+            <hr>
+            <button class="account-menu-btn logout-btn"
+                onclick="window.location.href='/logout'">
+                <i data-lucide="log-out"></i>
+                <span data-i18n="logout">Log Out</span>
+            </button>
+            {% else %}
+            <div class="account-guest">
+                <i data-lucide="user-circle"></i>
+                <p data-i18n="sign_in_prompt">Sign in to access your orders,
+                    settings and more.</p>
+                <a href="/auth/login" class="acc-btn primary">
+                    <span data-i18n="sign_in">Sign In</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+                <a href="/auth/signup" class="acc-btn secondary">
+                    <span data-i18n="create_account">Create Account</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ORDERS PANEL -->
+    <div class="account-panel hidden" id="panel-orders">
+        <div class="account-header">
+            <button class="back-panel-btn" onclick="switchPanel('main')">
+                <i data-lucide="arrow-left"></i>
+            </button>
+            <h3 data-i18n="orders">My Orders</h3>
+            <button class="close-btn" onclick="closeAccountModal()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="account-content" id="orders-content">
+            <div class="orders-empty" id="orders-empty">
+                <i data-lucide="shopping-bag"></i>
+                <p>No orders yet</p>
+                <a href="/shop" class="acc-btn primary">
+                    Browse Products
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            </div>
+            <div id="orders-list"></div>
+        </div>
+    </div>
+
+    <!-- SETTINGS PANEL -->
+    <div class="account-panel hidden" id="panel-settings">
+        <div class="account-header">
+            <button class="back-panel-btn" onclick="switchPanel('main')">
+                <i data-lucide="arrow-left"></i>
+            </button>
+            <h3 data-i18n="settings">Settings</h3>
+            <button class="close-btn" onclick="closeAccountModal()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="account-content">
+            <form id="settingsForm" method="POST" action="/user/update">
+                <div class="settings-group">
+                    <label>First Name</label>
+                    <input type="text" name="first_name"
+                        value="{{ session.get('user_name', '').split()[0] if session.get('user_name') else '' }}"
+                        placeholder="First name">
+                </div>
+                <div class="settings-group">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name"
+                        value="{{ session.get('user_name', '').split()[-1] if session.get('user_name') else '' }}"
+                        placeholder="Last name">
+                </div>
+                <div class="settings-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email"
+                        value="{{ session.get('email', '') }}"
+                        placeholder="your@email.com">
+                </div>
+                <div class="settings-group locked">
+                    <label>
+                        Date of Birth
+                        <span class="locked-tag">
+                            <i data-lucide="lock"></i>
+                            Locked
+                        </span>
+                    </label>
+                    <input type="text" disabled
+                        placeholder="Cannot be changed"
+                        value="{{ session.get('dob', '') }}">
+                    <span class="locked-hint">
+                        Need to change your DOB?
+                        <a href="/contact">Contact us</a>
+                    </span>
+                </div>
+                <button type="submit" class="acc-btn primary">
+                    <i data-lucide="save"></i>
+                    <span data-i18n="save_changes">Save Changes</span>
+                </button>
+            </form>
+            <hr>
+            <div class="danger-zone">
+                <h4>
+                    <i data-lucide="alert-triangle"></i>
+                    Danger Zone
+                </h4>
+                <p>Deleting your account is permanent and cannot be undone.</p>
+                <button class="acc-btn danger" onclick="confirmDelete()">
+                    <i data-lucide="trash-2"></i>
+                    <span data-i18n="delete_account">Delete Account</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LANGUAGE PANEL -->
+    <div class="account-panel hidden" id="panel-language">
+        <div class="account-header">
+            <button class="back-panel-btn" onclick="switchPanel('main')">
+                <i data-lucide="arrow-left"></i>
+            </button>
+            <h3 data-i18n="language">Language</h3>
+            <button class="close-btn" onclick="closeAccountModal()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="account-content">
+            <p class="lang-intro">Choose your preferred language. The whole site
+                will update.</p>
+            <div class="lang-options">
+                <button class="lang-btn" data-lang="en"
+                    onclick="setLanguage('en')">
+                    <span class="lang-flag">🇬🇧</span>
+                    <div>
+                        <strong>English</strong>
+                        <span>English</span>
+                    </div>
+                    <i data-lucide="check" class="lang-check"></i>
+                </button>
+                <button class="lang-btn" data-lang="fr"
+                    onclick="setLanguage('fr')">
+                    <span class="lang-flag">🇫🇷</span>
+                    <div>
+                        <strong>Français</strong>
+                        <span>French</span>
+                    </div>
+                    <i data-lucide="check" class="lang-check"></i>
+                </button>
+                <button class="lang-btn" data-lang="es"
+                    onclick="setLanguage('es')">
+                    <span class="lang-flag">🇪🇸</span>
+                    <div>
+                        <strong>Español</strong>
+                        <span>Spanish</span>
+                    </div>
+                    <i data-lucide="check" class="lang-check"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

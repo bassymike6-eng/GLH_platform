@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block title %}Home | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/home.css">
+{% endblock %}
+
+{% block content %}
+<!-- FLASH MESSAGES -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="alerts">
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+<!-- HERO CONTENT SECTION FOR HOME PAGE -->
+<section class="hero">
+    <section class="hero-overlay"></section>
+
+    <div class="hero-content">
+        <h1>A VITAL PART OF THE COMMUNITY</h1>
+
+        <p>Shop our online farmers market for quality foods.</p>
+
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary">BECOME A VENDOR
+                <i data-lucide="arrow-right"></i>
+            </a>
+            <a href="#" class="btn-secondary">SHOP NOW
+                <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+</section>
+
+<!-- MOVING FOOD STRIP SECTION-->
+<section class="food-scroll">
+    <section class="hero-overlay"></section>
+
+    <div class="food-row row1">
+        <div class="track">
+            <div class="set">
+                <img src="/static/images/burger.jpg">
+                <img src="/static/images/chicken.jpg">
+                <img src="/static/images/drinks.jpg">
+                <img src="/static/images/fruits.jpg">
+                <img src="/static/images/dessert.jpg">
+            </div>
+
+            <!-- CLONE -->
+            <div class="set">
+                <img src="/static/images/burger.jpg">
+                <img src="/static/images/chicken.jpg">
+                <img src="/static/images/drinks.jpg">
+                <img src="/static/images/fruits.jpg">
+                <img src="/static/images/dessert.jpg">
+            </div>
+        </div>
+    </div>
+
+    <div class="food-row row2">
+        <div class="track">
+            <div class="set">
+                <img src="/static/images/burger.jpg">
+                <img src="/static/images/chicken.jpg">
+                <img src="/static/images/drinks.jpg">
+                <img src="/static/images/fruits.jpg">
+                <img src="/static/images/dessert.jpg">
+            </div>
+
+            <!-- CLONE -->
+            <div class="set">
+                <img src="/static/images/burger.jpg">
+                <img src="/static/images/chicken.jpg">
+                <img src="/static/images/drinks.jpg">
+                <img src="/static/images/fruits.jpg">
+                <img src="/static/images/dessert.jpg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DELIVERY SECTION -->
+<section class="delivery">
+    <section class="hero-overlay"></section>
+
+    <div class="delivery-content">
+        <div class="delivery-text">
+            <h2>Have your orders delivered straight to your door</h2>
+
+            <p>Get your favourite foods or drinks delivered in a flash.
+                You'll be able to track your order and get notified when it's
+                nearby.
+            </p>
+        </div>
+
+        <div class="delivery-map">
+
+            <!-- MAP PLACEHOLDER -->
+            <img src="/static/images/map.jpg">
+
+            <!-- FLOATING CARD -->
+            <div class="delivery-popup">
+                <span>GLH</span>
+                <p>Your driver is nearby!!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/home.js"></script>
+
+{% endblock %}

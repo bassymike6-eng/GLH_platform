@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block body_class %}dashboard-page{% endblock %}
+{% block title %}Admin Dashboard | GLH{% endblock %}
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+<link rel="stylesheet" href="/static/css/admin.css">
+{% endblock %}
+{% block content %}
+<div class="dashboard-layout">
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="dash-sidebar">
+        <div class="dash-logo">
+            <span>GLH</span>
+            <span class="dash-logo-sub">Admin Panel</span>
+        </div>
+        <nav class="dash-nav">
+            <a href="/admin" class="dash-link active"><i
+                    data-lucide="layout-dashboard"></i> Dashboard</a>
+            <a href="/admin/users" class="dash-link"><i data-lucide="users"></i>
+                Users</a>
+            <a href="/admin/messages" class="dash-link">
+                <i data-lucide="mail"></i> Messages
+                {% if unread > 0 %}<span class="nav-badge">{{ unread }}</span>{%
+                endif %}
+            </a>
+            <hr style="border-color:rgba(255,255,255,0.07);margin:12px 0;">
+            <a href="/vendor" class="dash-link"><i data-lucide="store"></i>
+                Vendor View</a>
+            <a href="/dashboard" class="dash-link"><i data-lucide="user"></i>
+                Customer View</a>
+        </nav>
+        <div class="dash-sidebar-footer">
+            <a href="/logout" class="dash-logout"><i data-lucide="log-out"></i>
+                Log Out</a>
+        </div>
+    </aside>
+    <main class="dash-main">
+        <div class="dash-mobile-header">
+            <button id="dashMenuBtn"><i data-lucide="menu"></i></button>
+            <span>Admin Dashboard</span>
+        </div>
+        <div class="dash-content">
+            <div class="dash-welcome">
+                <div>
+                    <h1>Admin Panel 🛡️</h1>
+                    <p class="dash-email">GLH Platform Management</p>
+                </div>
+                {% if pending_apps > 0 %}
+                <div class="dash-wallet-badge"
+                    style="border-color:rgba(239,68,68,0.4);background:rgba(239,68,68,0.08);">
+                    <i data-lucide="alert-circle" style="color:#ef4444;"></i>
+                    <div>
+                        <span>Pending Applications</span>
+                        <strong style="color:#ef4444;">{{ pending_apps
+                            }}</strong>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <!-- STATS -->
+            <div class="dash-stats">
+                <div class="dash-stat">
+                    <i data-lucide="users"></i>
+                    <div><strong>{{ total_users }}</strong><span>Total
+                            Users</span></div>
+                </div>
+                <div class="dash-stat">
+                    <i data-lucide="store"></i>
+                    <div><strong>{{ total_vendors
+                            }}</strong><span>Vendors</span></div>
+                </div>
+                <div class="dash-stat">
+                    <i data-lucide="package"></i>
+                    <div><strong>{{ total_products
+                            }}</strong><span>Products</span></div>
+                </div>
+            </div>
+            <!-- QUICK ACTIONS -->
+            <div class="dash-section">
+                <div class="dash-section-header"><h2>Quick Actions</h2></div>
+                <div class="vendor-actions">
+                    <a href="/admin/users" class="vendor-action-card">
+                        <i data-lucide="users"></i>
+                        <strong>Manage Users</strong>
+                        <span>{{ total_users }} registered</span>
+                    </a>
+                    <a href="/admin/messages" class="vendor-action-card">
+                        <i data-lucide="mail"></i>
+                        <strong>Messages</strong>
+                        <span>{{ pending_apps }} pending applications</span>
+                    </a>
+                </div>
+            </div>
+            <!-- RECENT USERS -->
+            <div class="dash-section">
+                <div class="dash-section-header"><h2>Recent Signups</h2></div>
+                <div class="admin-user-list">
+                    {% for user in recent_users %}
+                    <div class="admin-user-row">
+                        <div class="admin-user-info">
+                            <strong>{{ user.full_name }}</strong>
+                            <span>{{ user.email }}</span>
+                        </div>
+                        <div class="admin-user-badges">
+                            <span class="role-badge {{ user.role }}">{{
+                                user.role }}</span>
+                            {% if user.is_vendor_approved %}
+                            <span class="role-badge vendor">vendor</span>
+                            {% endif %}
+                        </div>
+                        <span class="notif-date">{{
+                            user.created_at.strftime('%d %b %Y') }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+{% block page_js %}
+<script>
+const dashMenuBtn = document.getElementById("dashMenuBtn");
+const dashSidebar = document.querySelector(".dash-sidebar");
+if (dashMenuBtn && dashSidebar) dashMenuBtn.addEventListener("click", () => dashSidebar.classList.toggle("open"));
+if (typeof lucide !== "undefined") lucide.createIcons();
+</script>
+{% endblock %}

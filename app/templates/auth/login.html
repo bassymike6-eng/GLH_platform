@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Login | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/login.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+<div class="bg-overlay"></div>
+
+<div class="layout fade-in login-page">
+
+    <!--LEFT PANEL-->
+    <div class="left-panel">
+        <h2>Login</h2>
+        <p>Welcome back to GLH</p>
+    </div>
+
+    <div class="divider-line"></div>
+
+    <!--RIGHT PANEL -->
+    <div class="right-panel">
+
+        <div class="brand-heading">
+            <span class="brand-main">GLH</span>
+            <span class="brand-sub">Food & Drink</span>
+        </div>
+
+        <div class="card">
+
+            <span class="paper-corner tl"></span>
+            <span class="paper-corner tr"></span>
+            <span class="paper-corner bl"></span>
+            <span class="paper-corner br"></span>
+
+            <p class="form-label">Login</p>
+
+            <h1>Welcome Back</h1>
+            <p class="otp-text">Enter your email and password to continue</p>
+
+            <!-- FLASH-->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="alerts">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('auth.login') }}?next={{ next }}">
+
+                <!--EMAIL-->
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" required placeholder="Enter your email">
+
+                <!-- PASSWORD -->
+                <label for="password">Password</label>
+                <div class="input-icon">
+                    <input id="password" type="password" name="password" required placeholder="Enter your password">
+
+                    <button type="button" class="eye-btn" data-target="password"
+                        aria-label="Show or hide password">
+                        <svg viewBox="0 0 24 24" class="eye-svg">
+                            <path
+                               class="eye-outline"  d="M1 12s4-6 11-6 11 6 11 6-4 6-11 6S1 12 1 12z" />
+                            <circle cx="12" cy="12" r="3" />
+
+                            <!-- EYE SLASH -->
+                            <line class="eye-slash" x1="4" y1="20" x2="20" y2="4" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- REMEMBER + FORGOT -->
+                <div class="check-row" style="justify-content: space-between;">
+
+                    <label>
+                        <input type="checkbox" name="remember">
+                        Remember me
+                    </label>
+
+                    <a href="{{ url_for('auth.forgot') }}" style="font-size:13px; color:#c89b6d; font-weight:700;">
+                        Forgot Password?
+                    </a>
+                </div>
+
+                <!-- LOGIN BUTTON -->
+                <button id="loginBtn" type="submit" class="primary-btn">
+                    Sign In
+                </button>
+
+                <p class="security-text">
+                    Your data is protected with <span>GLH-grade encryption</span>
+                </p>
+
+                <!-- SIGNUP REDIRECT -->
+                <p class="alt">
+                    Don't have an account?
+                    <a href="{{ url_for('auth.signup') }}">Sign up</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/register.js"></script>
+{% endblock %}

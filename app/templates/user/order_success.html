@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block body_class %}success-page{% endblock %}
+{% block title %}Order Confirmed | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/order_success.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="success-wrap">
+
+    <!-- ANIMATION -->
+    <div class="success-icon">
+        <div class="success-ring"></div>
+        <i data-lucide="check" class="success-check"></i>
+    </div>
+
+    <h1>Order Confirmed!</h1>
+    <p class="success-sub">Thank you for your order. You will receive a
+        confirmation email soon.</p>
+
+    <!-- ORDER REF -->
+    <div class="success-ref">
+        <span>Order Reference</span>
+        <strong id="orderRef">—</strong>
+    </div>
+
+    <!-- INFO CARD -->
+    <div class="success-card">
+        <div class="success-row">
+            <i data-lucide="mail"></i>
+            <div>
+                <strong>Confirmation Email</strong>
+                <p>We'll send you a confirmation once the vendor has accepted
+                    your order.</p>
+            </div>
+        </div>
+        <div class="success-row">
+            <i data-lucide="package"></i>
+            <div>
+                <strong>Delivery</strong>
+                <p>Your order will be dispatched within 1–2 working days and
+                    arrive in 2–3 working days.</p>
+            </div>
+        </div>
+        <div class="success-row">
+            <i data-lucide="store"></i>
+            <div>
+                <strong>Vendor Processing</strong>
+                <p>Your order has been sent to the vendor. They will review and
+                    confirm it shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOTAL -->
+    <div class="success-total">
+        <span>Total Paid</span>
+        <strong id="successTotal">£0.00</strong>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="success-actions">
+        <a href="/shop" class="suc-btn primary">
+            <i data-lucide="shopping-basket"></i>
+            Continue Shopping
+        </a>
+        <a href="/dashboard/orders" class="suc-btn secondary">
+            <i data-lucide="package"></i>
+            View My Orders
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script>
+    // Get ref and total from URL
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
+    const total = params.get("total");
+    if (ref) document.getElementById("orderRef").textContent = "#" + ref;
+    if (total) document.getElementById("successTotal").textContent = "£" + parseFloat(total).toFixed(2);
+    if (typeof lucide !== "undefined") lucide.createIcons();
+</script>
+{% endblock %}

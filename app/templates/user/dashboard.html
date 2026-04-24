@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block body_class %}dashboard-page{% endblock %}
+{% block title %}My Dashboard | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+{% endblock %}
+
+{% block content %}
+
+{% if not session.get('user_id') %}
+<script>window.location.href = "/auth/login";</script>
+{% endif %}
+
+<div class="dashboard-layout">
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- SIDE MENU -->
+    <aside class="dash-sidebar">
+        <div class="dash-logo">
+            <span>GLH</span>
+            <span class="dash-logo-sub">My Account</span>
+        </div>
+
+        <nav class="dash-nav">
+            <a href="/dashboard" class="dash-link active" id="nav-dashboard">
+                <i data-lucide="layout-dashboard"></i>
+                Dashboard
+            </a>
+            <a href="/dashboard/orders" class="dash-link" id="nav-orders">
+                <i data-lucide="package"></i>
+                Orders
+            </a>
+            <a href="/dashboard/addresses" class="dash-link" id="nav-addresses">
+                <i data-lucide="map-pin"></i>
+                Addresses
+            </a>
+            <a href="/contact#vendor" class="dash-link">
+                <i data-lucide="store"></i>
+                Become a Vendor
+            </a>
+        </nav>
+
+        <div class="dash-sidebar-footer">
+            <a href="/logout" class="dash-logout">
+                <i data-lucide="log-out"></i>
+                Log Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="dash-main">
+
+        <!-- MOBILE HEADER -->
+        <div class="dash-mobile-header">
+            <button id="dashMenuBtn">
+                <i data-lucide="menu"></i>
+            </button>
+            <span>My Account</span>
+        </div>
+
+        <!-- DASHBOARD HOME -->
+        <div class="dash-content" id="dash-home">
+
+            <!-- WELCOME -->
+            <div class="dash-welcome">
+                <div>
+                    <h1>Hello, {{ session.get('user_name', 'there').split()[0]
+                        }} </h1>
+                    <p class="dash-email">
+                        Not {{ session.get('user_name', '') }}?
+                        <a href="/logout">Log out</a>
+                    </p>
+                </div>
+                <div class="dash-wallet-badge">
+                    <i data-lucide="wallet"></i>
+                    <div>
+                        <span>Wallet Balance</span>
+                        <strong id="walletBadgeAmount">£0.00</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO CARD -->
+            <div class="dash-info-card">
+                <p>From your account dashboard you can view your recent orders,
+                    manage your shipping addresses, and edit your account
+                    details.</p>
+            </div>
+
+            <!-- QUICK STATS -->
+            <div class="dash-stats">
+                <div class="dash-stat">
+                    <i data-lucide="package"></i>
+                    <div>
+                        <strong id="stat-orders">0</strong>
+                        <span>Orders</span>
+                    </div>
+                </div>
+                <div class="dash-stat">
+                    <i data-lucide="wallet"></i>
+                    <div>
+                        <strong id="stat-wallet">£0.00</strong>
+                        <span>Wallet</span>
+                    </div>
+                </div>
+                <div class="dash-stat">
+                    <i data-lucide="heart"></i>
+                    <div>
+                        <strong id="stat-favs">0</strong>
+                        <span>Favourites</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECENT ORDERS -->
+            <div class="dash-section">
+                <div class="dash-section-header">
+                    <h2>Recent Orders</h2>
+                    <a href="/dashboard/orders">View all</a>
+                </div>
+                <div id="dash-recent-orders">
+                    <div class="dash-empty">
+                        <i data-lucide="shopping-bag"></i>
+                        <p>No orders yet</p>
+                        <a href="/shop" class="acc-btn primary">Browse
+                            Products</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BECOME A VENDOR -->
+            <div class="dash-vendor-card">
+                <div class="dash-vendor-left">
+                    <i data-lucide="store"></i>
+                    <div>
+                        <strong>Become a Vendor</strong>
+                        <p>Vendors can sell products and manage a store with a
+                            vendor dashboard.</p>
+                    </div>
+                </div>
+                <a href="/contact#vendor"
+                    class="acc-btn primary dash-vendor-btn">
+                    Become a Vendor
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- WALLET TOP UP -->
+            <div class="dash-section">
+                <div class="dash-section-header">
+                    <h2><i data-lucide="wallet"></i> My Wallet</h2>
+                </div>
+                <div class="wallet-dash-card">
+                    <div class="wallet-dash-balance">
+                        <span>Current Balance</span>
+                        <strong id="walletBalance">£0.00</strong>
+                    </div>
+                    <div class="wallet-topup">
+                        <p>Add funds to your GLH wallet to use at checkout.</p>
+                        <div class="topup-presets">
+                            <button class="topup-btn" onclick="topUp(5)">+
+                                £5</button>
+                            <button class="topup-btn" onclick="topUp(10)">+
+                                £10</button>
+                            <button class="topup-btn" onclick="topUp(20)">+
+                                £20</button>
+                            <button class="topup-btn" onclick="topUp(50)">+
+                                £50</button>
+                        </div>
+                        <div class="topup-custom">
+                            <input type="number" id="customAmount"
+                                placeholder="Custom amount (£)"
+                                min="1" max="500" step="0.01">
+                            <button class="acc-btn primary"
+                                onclick="topUpCustom()">
+                                <i data-lucide="plus"></i>
+                                Add Funds
+                            </button>
+                        </div>
+                        <p class="wallet-note">
+                            <i data-lucide="info"></i>
+                            This is a simulated wallet for demonstration
+                            purposes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/dashboard.js"></script>
+{% endblock %}

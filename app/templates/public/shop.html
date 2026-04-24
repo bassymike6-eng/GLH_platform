@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+
+{% block body_class %}shop-page{% endblock %}
+
+{% block title %}Shop | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/shop.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- SHOP HERO HEADER -->
+<section class="shop-header">
+       <div class="shop-header-inner">
+              <h1>Fresh From Local Farmers</h1>
+              <p>Discover quality produce from trusted local vendors across
+                     Milton
+                     Keynes</p>
+
+              <!-- SEARCH BAR -->
+              <div class="shop-search">
+                     <i data-lucide="search"></i>
+                     <input type="text" id="shopSearch"
+                            placeholder="Search products, vendors...">
+                     <button class="search-clear" id="searchClear">
+                            <i data-lucide="x"></i>
+                     </button>
+              </div>
+       </div>
+</section>
+
+<!-- CATEGORIES BAR -->
+<section class="shop-categories">
+       <div class="categories-inner">
+              <button class="cat-btn active" data-cat="all">
+                     <i data-lucide="layout-grid"></i>
+                     All
+              </button>
+              <button class="cat-btn" data-cat="fruits">
+                     🍎 Fruits
+              </button>
+              <button class="cat-btn" data-cat="vegetables">
+                     🥦 Vegetables
+              </button>
+              <button class="cat-btn" data-cat="meats">
+                     🥩 Meats
+              </button>
+              <button class="cat-btn" data-cat="fish">
+                     🐟 Fish
+              </button>
+              <button class="cat-btn" data-cat="dairy">
+                     🥛 Dairy
+              </button>
+              <button class="cat-btn" data-cat="nuts">
+                     🥜 Nuts
+              </button>
+              <button class="cat-btn" data-cat="spices">
+                     🌶️ Spices
+              </button>
+              <button class="cat-btn" data-cat="drinks">
+                     🧃 Drinks
+              </button>
+              <button class="cat-btn" data-cat="frozen">
+                     <i data-lucide="snowflake"></i>
+                     Frozen
+              </button>
+       </div>
+</section>
+
+<!-- SHOP MAIN CONTENT -->
+<section class="shop-main">
+       <div class="shop-container">
+
+              <!-- RESULTS BAR -->
+              <div class="shop-results-bar">
+                     <span class="results-count" id="resultsCount">Showing all
+                            products</span>
+                     <div class="sort-wrap">
+                            <label>Sort by</label>
+                            <select id="shopSort" class="sort-select">
+                                   <option value="default">Featured</option>
+                                   <option value="price-asc">Price: Low to
+                                          High</option>
+                                   <option value="price-desc">Price: High to
+                                          Low</option>
+                                   <option value="popular">Most Popular</option>
+                                   <option value="new">Newest</option>
+                            </select>
+                     </div>
+              </div>
+
+              <!-- POPULAR SECTION -->
+              <div class="shop-section" id="popularSection">
+                     <div class="section-header">
+                            <h2><i data-lucide="flame"></i> Popular Right
+                                   Now</h2>
+                            <span class="section-sub">Based on recent
+                                   orders</span>
+                     </div>
+
+                     <div class="product-grid" id="popularGrid">
+                            <!-- POPULATED BY JS / JINJA LATER -->
+                            {% for product in popular_products %}
+                            {% include "partials/product_card.html" %}
+                            <!-- PLACEHOLDER CARDS FOR NOW -->
+                            {% for i in range(4) %}
+                            <div class="product-card placeholder">
+                                   <div class="card-img-wrap">
+                                          <div class="img-placeholder"></div>
+                                   </div>
+                                   <div class="card-body">
+                                          <div class="ph-line short"></div>
+                                          <div class="ph-line"></div>
+                                          <div class="ph-line short"></div>
+                                   </div>
+                            </div>
+                            {% endfor %}
+                            {% endfor %}
+                     </div>
+              </div>
+
+              <!-- DIVIDER -->
+              <div class="shop-divider"></div>
+
+              <!-- ALL PRODUCTS SECTION -->
+              <div class="shop-section" id="allProductsSection">
+                     <div class="section-header">
+                            <h2><i data-lucide="package"></i> All Products</h2>
+                            <span class="section-sub" id="categoryLabel">Browse
+                                   everything</span>
+                     </div>
+
+                     <div class="product-grid" id="productGrid">
+                            {% for product in products %}
+                            {% include "partials/product_card.html" %}
+                            
+                            {% for i in range(8) %}
+                            <div class="product-card placeholder">
+                                   <div class="card-img-wrap">
+                                          <div class="img-placeholder"></div>
+                                   </div>
+                                   <div class="card-body">
+                                          <div class="ph-line short"></div>
+                                          <div class="ph-line"></div>
+                                          <div class="ph-line short"></div>
+                                   </div>
+                            </div>
+                            {% endfor %}
+                            {% endfor %}
+                     </div>
+              </div>
+
+              <!-- EMPTY STATE -->
+              <div class="shop-empty hidden" id="shopEmpty">
+                     <i data-lucide="search-x"></i>
+                     <h3>No products found</h3>
+                     <p>Try a different category or search term</p>
+              </div>
+
+       </div>
+</section>
+
+<!-- PRODUCT MODAL -->
+<div class="product-modal-overlay" id="productModalOverlay"
+       onclick="closeProductModal()"></div>
+
+<div class="product-modal" id="productModal">
+       <!-- CLOSE -->
+       <button class="modal-close" onclick="closeProductModal()">
+              <i data-lucide="x"></i>
+       </button>
+
+       <div class="modal-inner">
+
+              <!-- LEFT GALLERY -->
+              <div class="modal-gallery">
+                     <div class="gallery-main">
+                            <img src alt id="modalMainImg">
+                            <button class="modal-heart" id="modalHeart"
+                                   onclick="toggleFavourite(event, this)">
+                                   <i data-lucide="heart"></i>
+                            </button>
+                     </div>
+                     <div class="gallery-thumbs" id="galleryThumbs"></div>
+              </div>
+
+              <!-- RIGHT INFO-->
+              <div class="modal-info">
+
+                     <!-- TOP META -->
+                     <div class="modal-meta">
+                            <span class="modal-category"
+                                   id="modalCategory"></span>
+                            <span class="modal-vendor" id="modalVendor"></span>
+                     </div>
+
+                     <h2 class="modal-name" id="modalName"></h2>
+
+                     <div class="modal-price-row">
+                            <span class="modal-price" id="modalPrice"></span>
+                            <span class="modal-input" id="modalUnit"></span>
+                     </div>
+
+                     <p class="modal-description" id="modalDescription"></p>
+
+                     <!-- STOCK INDICATOR -->
+                     <div class="modal-sizes" id="modalStock"></div>
+
+                     <!-- SIZE OR WEIGHT OPTIONS -->
+                     <div class="modal-sizes" id="modalSizes"></div>
+
+                     <!-- QUANTITY -->
+                     <div class="modal-qty">
+                            <button class="qty-btn" id="qtyMinus"
+                                   onclick="changeQty(-1)">
+                                   <i data-lucide="minus"></i>
+                            </button>
+
+                            <span class="qty-val" id="qtyVal">1</span>
+                            <button class="qty-btn" id="qtyPlus"
+                                   onclick="changeQty(1)">
+                                   <i data-lucide="plus"></i>
+                            </button>
+                     </div>
+
+                     <!-- ACTIONS -->
+                     <div class="modal-actions">
+                            <button class="btn-add-basket" id="btnAddBasket"
+                                   onclick="buyNow()">
+                                   Buy Now
+                                   <i data-lucide="arrow-right"></i>
+                            </button>
+                     </div>
+
+                     <!-- MORE VENDOR -->
+                     <div class="modal-vendor-tag">
+                            <i data-lucide="store"></i>
+                            Sold by <strong id="modalVendorTag"></strong>
+                     </div>
+
+              </div>
+       </div>
+
+       <!-- MORE PRODUCTS -->
+       <div class="modal-more">
+              <h3>More from this Vendor</h3>
+              <div class="modal-more-grid" id="modalMoreGrid">
+                     <!-- POPULATED BY JS-->
+              </div>
+       </div>
+</div>
+
+<!-- AUTH GATE MODAL -->
+<div class="auth-gate-overlay hidden" id="authGateOverlay"
+       onclick="closeAuthGate()"></div>
+<div class="auth-gate hidden" id="authGate">
+       <button class="modal-close" onclick="closeAuthGate()">
+              <i data-lucide="x"></i>
+       </button>
+       <i data-lucide="lock" class="auth-lock-icon"></i>
+       <h3>You need an acount</h3>
+       <p>Sign in or create an account to add items to your basket or
+              purchase.</p>
+       <div class="auth-gate-btns">
+              <a href="{{ url_for('auth.login') }}" class="btn-primary">
+                     Sign In
+                     <i data-lucide="arrow-right"></i>
+              </a>
+              <a href="{{ url_for('auth.signup') }}" class="btn-secondary">
+                     Register
+                     <i data-lucide="arrow-right"></i>
+              </a>
+       </div>
+</div>
+
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/shop.js"></script>
+{% endblock %}

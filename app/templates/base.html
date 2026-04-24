@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% if session.get('user_name') %}
+        <meta name="user-name" content="{{ session.get('user_name', '') }}">
+        {% endif %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title%}GLH Platform{% endblock %}</title>
+        <!-- global css for all public pages-->
+        <link rel="stylesheet" href="/static/css/base_html.css">
+
+        {% block page_css%}{% endblock %}
+
+    </head>
+    <body class="{% block body_class %}{% endblock %}"
+        data-signup='{{ session.get("signup", {}) | tojson | safe }}'
+        data-loggedin="{{ 'true' if session.get('user_id') else 'false' }}"
+        data-userid="{{ session.get('user_id', '') }}"
+        >
+
+        <!-- GLOBAL LOADER -->
+        <div id="pageLoader" class="page-loader" aria-hidden="true">
+            <div class="loader-wrap">
+
+                <div class="loader-ring"></div>
+
+                <div class="loader-logo-text">GLH</div>
+
+                <div class="loader-sub">Food & Drink</div>
+                <div class="loader-text">Loading...</div>
+            </div>
+        </div>
+
+        <!-- NAVBAR -->
+        {% include "partials/navbar.html" %}
+
+        <!-- ACCOUNT MODAL-->
+        {% include "partials/account_modal.html" %}
+
+        <!-- MAIN CONTENT -->
+        <main id="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-top">
+
+                    <div class="footer-brand">
+                        <h2>GLH</h2>
+                        <p data-i18n="footer_tagline">Premium food & drink delivered fast. Built for
+                            convenience and quality.</p>
+
+                        <div class="footer-socials">
+                            <img src="/static/images/instagram.png">
+                            <img src="/static/images/twitter.png">
+                            <img src="/static/images/facebook.png">
+                            <img src="/static/images/youtube.png">
+                        </div>
+                    </div>
+
+                    <!--NEWSLETTER -->
+                    <div class="footer-newsletter">
+                        <h3 data-i18n="footer_discount">Get 25% off</h3>
+                        <p data-i18n="footer_subscribe">Subscribe and recieve exclusive discounts.</p>
+
+                        <form method="POST"
+                            action="{{ url_for('auth.subscribe') }}"
+                            id="newsletter-form">
+                            <div class="newsletter-box">
+                                <input type="email" name="email"
+                                    placeholder="Enter your email" data-i18n="footer_email">
+                                <button type="submit" class="newsletter-btn">
+                                    <i data-lucide="arrow-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- MIDDLE -->
+                <div class="footer-grid">
+
+                    <div>
+                        <h4 data-i18n="footer_discover">Discover</h4>
+                        <a href="{{ url_for('main.about') }}">About Us</a>
+                        <a href="{{ url_for('main.location') }}">Locations</a>
+                        <a href="{{ url_for('main.shop') }}">Products</a>
+                    </div>
+
+                    <div>
+                        <h4 data-i18n="footer_support">Support</h4>
+                        <a href="{{ url_for('main.contact') }}">Contact</a>
+                        <a href="{{ url_for('main.faqs') }}">FAQs</a>
+                    </div>
+
+                    <div>
+                        <h4 data-i18n="footer_hours">Opening Hours</h4>
+                        <p data-i18n="footer_hours_weekday">Mon - Fri: 9am - 10pm</p>
+                        <p data-i18n="footer_hours_weekend">Sat - Sun: 10am - 11pm</p>
+                    </div>
+
+                    <div>
+                        <h4 data-i18n="footer_address">Address</h4>
+                        <p>MK Street</p>
+                        <p>Milton Keynes, UK</p>
+                    </div>
+
+                </div>
+
+                <!-- BOTTOM -->
+                <div class="footer-bottom">
+                    <span data-i18n="footer_rights">© 2026 GLH. All rights reserved.</span>
+
+                    <div class="footer-legal">
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+        <!-- BASKET MODAL — global -->
+        <div class="basket-overlay hidden" id="basketOverlay"
+            onclick="closeBasket()"></div>
+        <div class="basket-modal hidden" id="basketModal">
+            <div class="basket-header">
+                <h3 data-i18n="your_basket">Your Basket</h3>
+                <button class="modal-close" onclick="closeBasket()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="basket-items" id="basketItems"></div>
+            <div class="basket-empty hidden" id="basketEmpty">
+                <i data-lucide="shopping-cart"></i>
+                <p data-i18n="basket_empty">Your basket is empty</p>
+                <span data-i18n="basket_empty_sub">Add some products to get
+                    started</span>
+            </div>
+            <div class="basket-footer hidden" id="basketFooter">
+                <div class="basket-total-row">
+                    <span data-i18n="subtotal">Subtotal</span>
+                    <span class="basket-total" id="basketTotal">£0.00</span>
+                </div>
+                <a href="/checkout" class="btn-checkout">
+                    <span data-i18n="view_checkout">View in Checkout</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+                <button class="btn-clear-basket" onclick="clearBasket()"
+                    data-i18n="clear_basket">Clear basket</button>
+            </div>
+        </div>
+
+        <!-- FAV MODAL — global -->
+        <div class="fav-overlay hidden" id="favOverlay"
+            onclick="closeFavourites()"></div>
+        <div class="fav-modal hidden" id="favModal">
+            <div class="fav-header">
+                <h3 data-i18n="your_favourites">Your Favourites</h3>
+                <button class="modal-close" onclick="closeFavourites()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="fav-items" id="favItems"></div>
+            <div class="fav-empty hidden" id="favEmpty">
+                <i data-lucide="heart"></i>
+                <p data-i18n="no_favourites">No favourites yet</p>
+                <span data-i18n="no_favourites_sub">Tap the heart on any product
+                    to save it here</span>
+            </div>
+        </div>
+
+        <!-- COOKIE POPUP -->
+        <div id="cookie-banner" class="cookie-banner">
+            <div class="cookie-inner">
+
+                <div class="cookie-left">
+                    <div class="cookie-icon">🍪</div>
+                    <div class="cookie-text">
+                        <h4>We use cookies</h4>
+                        <p>We use cookies to improve your experience,
+                            personalise your content and help you discover the
+                            best foods and drinks on GLH. By clicking "Accept",
+                            you agee to our <a href="#">Cookie Policy</a>.</p>
+                    </div>
+                </div>
+
+                <div class="cookie-right">
+                    <button id="cookie-decline"
+                        class="cookie-btn secondary">Decline</button>
+                    <button id="cookie-accept" class="cookie-btn primary">Accept
+                        all</button>
+                    <button id="cookie-close" class="cookie-close">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--SCRIPT -->
+        <script src="https://www.google.com/recaptcha/api.js" async
+            defer></script>
+
+        <!-- FOR MY ICONS IN NAVIGATION-->
+        <script src="https://unpkg.com/lucide@latest"></script>
+
+        <!-- GLOBAL JS -->
+        <script src="/static/js/base_html.js"></script>
+
+        {% block page_js %}{% endblock %}
+    </body>
+</html>

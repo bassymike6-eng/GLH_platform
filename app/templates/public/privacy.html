@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block body_class %}privacy-page{% endblock %}
+{% block title %}Privacy Policy | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/privacy.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="privacy-bg"></div>
+
+<div class="privacy-layout">
+
+    <!-- LEFT: NAV -->
+    <aside class="privacy-nav">
+        <h2>GLH Privacy Policy</h2>
+        <ul>
+            <li><a href="#s1" class="pnav-link active">1. Contact
+                    Details</a></li>
+            <li><a href="#s2" class="pnav-link">2. Payments</a></li>
+            <li><a href="#s3" class="pnav-link">3. Cookies</a></li>
+            <li><a href="#s4" class="pnav-link">4. Mobile Communication</a></li>
+            <li><a href="#s5" class="pnav-link">5. Information We
+                    Collect</a></li>
+            <li><a href="#s6" class="pnav-link">6. Security</a></li>
+            <li><a href="#s7" class="pnav-link">7. Your Rights</a></li>
+            <li><a href="#s8" class="pnav-link">8. Changes to Policy</a></li>
+        </ul>
+    </aside>
+
+    <!-- RIGHT: CONTENT -->
+    <main class="privacy-content">
+
+        <section id="s1" class="privacy-section">
+            <h2>1. Contact Details</h2>
+            <p>GLH Food & Drink is committed to protecting your privacy. If you
+                have any queries about this policy or how we handle your
+                information, please contact us at <a
+                    href="mailto:hello@glh.co.uk">hello@glh.co.uk</a> or write
+                to us at GLH Food & Drink, Chaffron Way, Milton Keynes, MK6
+                5LP.</p>
+        </section>
+
+        <section id="s2" class="privacy-section">
+            <h2>2. Payments</h2>
+            <p>All payment transactions on GLH are encrypted and processed
+                securely. We do not store your full card details on our servers.
+                Payment data is handled by trusted third-party payment
+                processors who comply with PCI DSS standards. We retain
+                transaction records only as required by law.</p>
+        </section>
+
+        <section id="s3" class="privacy-section">
+            <h2>3. Cookies</h2>
+            <p>When you visit our platform, we may store cookies in your browser
+                to improve your experience. These include session cookies which
+                expire when you close your browser, and preference cookies which
+                remember your settings. You can control cookie behaviour through
+                your browser settings. Rejecting cookies may limit some features
+                of GLH.</p>
+        </section>
+
+        <section id="s4" class="privacy-section">
+            <h2>4. Mobile Communication</h2>
+            <p>We may use your contact details to send you order updates,
+                delivery notifications, and service messages. You can opt out of
+                marketing communications at any time by updating your account
+                preferences or clicking unsubscribe in any email we send.
+                Essential service messages cannot be opted out of while you have
+                an active account.</p>
+        </section>
+
+        <section id="s5" class="privacy-section">
+            <h2>5. Information We Collect</h2>
+            <p>When you use GLH, we collect information to provide and improve
+                our services. This includes:</p>
+            <ul class="privacy-list">
+                <li>Vendors you've viewed and products you've browsed, to
+                    personalise recommendations</li>
+                <li>Location and IP address, to estimate delivery
+                    availability</li>
+                <li>Shipping address, to process and deliver your orders</li>
+                <li>Device and browser data, to ensure compatibility and
+                    security</li>
+            </ul>
+            <p>We also use cookies to maintain your session while browsing so
+                items remain in your basket.</p>
+        </section>
+
+        <section id="s6" class="privacy-section">
+            <h2>6. Security</h2>
+            <p>We adopt robust technical and organisational measures to protect
+                your personal data from being accidentally lost, used, accessed
+                in an unauthorised way, altered, or disclosed. Access to your
+                information is limited to staff and vendors who have a
+                legitimate business need. In the event of a data breach, we will
+                notify affected users and relevant authorities as required by
+                law.</p>
+        </section>
+
+        <section id="s7" class="privacy-section">
+            <h2>7. Your Rights</h2>
+            <p>You have the right to access, correct, or delete the personal
+                data we hold about you. You can request an export of your data,
+                ask us to restrict processing, or withdraw consent at any time.
+                To exercise any of these rights, contact us at <a
+                    href="mailto:hello@glh.co.uk">hello@glh.co.uk</a>. We will
+                respond within 30 days. This does not affect any data we are
+                required to retain for legal or administrative reasons.</p>
+        </section>
+
+        <section id="s8" class="privacy-section">
+            <h2>8. Changes to Our Policy</h2>
+            <p>We may update this policy from time to time. Where changes are
+                significant, we will notify you by email or via a prominent
+                notice on our platform. We encourage you to review this page
+                periodically. This policy was last updated April 2026.</p>
+            <p class="privacy-address">GLH Food & Drink · Chaffron Way · Milton
+                Keynes · MK6 5LP · United Kingdom</p>
+        </section>
+
+    </main>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/privacy.js"></script>
+{% endblock %}

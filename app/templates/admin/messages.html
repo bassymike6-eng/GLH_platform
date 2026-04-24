@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block body_class %}dashboard-page{% endblock %}
+{% block title %}Messages | GLH Admin{% endblock %}
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+<link rel="stylesheet" href="/static/css/admin.css">
+{% endblock %}
+{% block content %}
+<div class="dashboard-layout">
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="dash-sidebar">
+        <div class="dash-logo"><span>GLH</span><span class="dash-logo-sub">Admin
+                Panel</span></div>
+        <nav class="dash-nav">
+            <a href="/admin" class="dash-link"><i
+                    data-lucide="layout-dashboard"></i> Dashboard</a>
+            <a href="/admin/users" class="dash-link"><i data-lucide="users"></i>
+                Users</a>
+            <a href="/admin/messages" class="dash-link active"><i
+                    data-lucide="mail"></i> Messages</a>
+            <hr style="border-color:rgba(255,255,255,0.07);margin:12px 0;">
+            <a href="/vendor" class="dash-link"><i data-lucide="store"></i>
+                Vendor View</a>
+            <a href="/dashboard" class="dash-link"><i data-lucide="user"></i>
+                Customer View</a>
+        </nav>
+        <div class="dash-sidebar-footer">
+            <a href="/logout" class="dash-logout"><i data-lucide="log-out"></i>
+                Log Out</a>
+        </div>
+    </aside>
+    <main class="dash-main">
+        <div class="dash-mobile-header">
+            <button id="dashMenuBtn"><i data-lucide="menu"></i></button>
+            <span>Messages</span>
+        </div>
+        <div class="dash-content">
+            <h1 class="dash-page-title">Messages & Applications</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}{% for c, m in messages %}<div
+                class="alert alert-{{ c }}"
+                style="margin-bottom:16px;padding:12px 16px;border-radius:10px;">{{
+                m }}</div>{% endfor %}{% endif %}
+            {% endwith %}
+
+            <!-- VENDOR APPLICATIONS -->
+            <div class="dash-section">
+                <div class="dash-section-header">
+                    <h2><i data-lucide="store"
+                            style="width:18px;height:18px;color:#c89b6d;vertical-align:middle;margin-right:6px;"></i>
+                        Vendor Applications</h2>
+                </div>
+                {% if vendor_apps %}
+                <div class="admin-msg-list">
+                    {% for app in vendor_apps %}
+                    <div
+                        class="admin-msg-card {% if app.status == 'pending' %}unread{% endif %}">
+                        <div class="admin-msg-header">
+                            <div>
+                                <strong>{{ app.full_name }}</strong>
+                                <span class="notif-date">{{
+                                    app.created_at.strftime('%d %b %Y')
+                                    }}</span>
+                            </div>
+                            <span class="order-status-badge {{ app.status }}">{{
+                                app.status | capitalize }}</span>
+                        </div>
+                        <div class="admin-msg-meta">
+                            <span><i data-lucide="mail"></i> {{ app.email
+                                }}</span>
+                            {% if app.business_name %}<span><i
+                                    data-lucide="store"></i> {{
+                                app.business_name }}</span>{% endif %}
+                            {% if app.product_type %}<span><i
+                                    data-lucide="package"></i> {{
+                                app.product_type }}</span>{% endif %}
+                            {% if app.location %}<span><i
+                                    data-lucide="map-pin"></i> {{ app.location
+                                }}</span>{% endif %}
+                        </div>
+                        <p class="admin-msg-body">{{ app.message }}</p>
+                        {% if app.status == 'pending' %}
+                        <div class="admin-msg-actions">
+                            <form method="POST"
+                                action="/admin/messages/accept/{{ app.id }}"
+                                style="display:inline;">
+                                <button type="submit" class="vp-btn edit">
+                                    <i data-lucide="check"></i> Accept & Approve
+                                    Vendor
+                                </button>
+                            </form>
+                            <form method="POST"
+                                action="/admin/messages/decline/{{ app.id }}"
+                                style="display:inline;">
+                                <button type="submit" class="vp-btn delete"
+                                    onclick="return confirm('Decline this application?')">
+                                    <i data-lucide="x"></i> Decline
+                                </button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="dash-empty" style="padding:30px 0;">
+                    <i data-lucide="inbox"></i><p>No vendor applications</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- GENERAL MESSAGES -->
+            <div class="dash-section">
+                <div class="dash-section-header">
+                    <h2><i data-lucide="message-circle"
+                            style="width:18px;height:18px;color:#c89b6d;vertical-align:middle;margin-right:6px;"></i>
+                        General Enquiries</h2>
+                </div>
+                {% if general %}
+                <div class="admin-msg-list">
+                    {% for msg in general %}
+                    <div class="admin-msg-card">
+                        <div class="admin-msg-header">
+                            <div>
+                                <strong>{{ msg.full_name }}</strong>
+                                <span class="notif-date">{{
+                                    msg.created_at.strftime('%d %b %Y')
+                                    }}</span>
+                            </div>
+                            {% if msg.subject %}<span class="notif-hint">{{
+                                msg.subject }}</span>{% endif %}
+                        </div>
+                        <div class="admin-msg-meta">
+                            <span><i data-lucide="mail"></i> {{ msg.email
+                                }}</span>
+                        </div>
+                        <p class="admin-msg-body">{{ msg.message }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="dash-empty" style="padding:30px 0;">
+                    <i data-lucide="inbox"></i><p>No messages yet</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+{% block page_js %}
+<script>
+const dashMenuBtn = document.getElementById("dashMenuBtn");
+const dashSidebar = document.querySelector(".dash-sidebar");
+if (dashMenuBtn && dashSidebar) dashMenuBtn.addEventListener("click", () => dashSidebar.classList.toggle("open"));
+if (typeof lucide !== "undefined") lucide.createIcons();
+</script>
+{% endblock %}

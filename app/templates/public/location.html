@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block body_class %}location-page{% endblock %}
+
+{% block title %}Our Location | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/location.css">
+<!-- LEAFLET -->
+<link rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+{% endblock %}
+
+{% block content %}
+
+<!-- LOCATION HERO -->
+<section class="location-hero">
+    <div class="location-hero-inner">
+        <span class="location-tag">
+            <i data-lucide="map-pin"></i>
+            Milton Keynes, UK
+        </span>
+        <h1>Find Us</h1>
+        <p>Come visit us at our GLH location in the heart of Milton Keynes</p>
+    </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section class="location-main">
+    <div class="location-container">
+
+        <!-- LEFT: INFO -->
+        <div class="location-info">
+
+            <!-- ADDRESS -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <i data-lucide="map-pin"></i>
+                    <h3>Address</h3>
+                </div>
+                <div class="info-card-body">
+                    <p>MK College</p>
+                    <p>Chaffron Way</p>
+                    <p>Milton Keynes</p>
+                    <p>MK6 5LP</p>
+                    <a href="https://maps.google.com/?q=MK6+5LP"
+                        target="_blank"
+                        class="directions-btn">
+                        Get Directions
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- PHONE -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <i data-lucide="phone"></i>
+                    <h3>Contact</h3>
+                </div>
+                <div class="info-card-body">
+                    <a href="tel:+441908000000" class="contact-link">
+                        <i data-lucide="phone-call"></i>
+                        +44 1908 000 000
+                    </a>
+                    <a href="mailto:hello@glh.co.uk" class="contact-link">
+                        <i data-lucide="mail"></i>
+                        hello@glh.co.uk
+                    </a>
+                </div>
+            </div>
+
+            <!-- OPENING HOURS -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <i data-lucide="clock"></i>
+                    <h3>Opening Hours</h3>
+                </div>
+                <div class="info-card-body hours-body">
+                    <div class="hours-row">
+                        <span class="day">Monday</span>
+                        <span class="time">9:00am – 10:00pm</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">Tuesday</span>
+                        <span class="time">9:00am – 10:00pm</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">Wednesday</span>
+                        <span class="time">9:00am – 10:00pm</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">Thursday</span>
+                        <span class="time">9:00am – 10:00pm</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="day">Friday</span>
+                        <span class="time">9:00am – 10:00pm</span>
+                    </div>
+                    <div class="hours-row weekend">
+                        <span class="day">Saturday</span>
+                        <span class="time">10:00am – 11:00pm</span>
+                    </div>
+                    <div class="hours-row weekend">
+                        <span class="day">Sunday</span>
+                        <span class="time">10:00am – 11:00pm</span>
+                    </div>
+
+                    <!-- TODAY INDICATOR -->
+                    <div class="today-status" id="todayStatus"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: MAP -->
+        <div class="location-map-wrap">
+            <div id="glhMap"></div>
+            <div class="map-pin-card">
+                <i data-lucide="map-pin"></i>
+                <div>
+                    <strong>GLH Food & Drink</strong>
+                    <span>Chaffron Way, MK6 5LP</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+{% block page_js %}
+<!-- LEAFLET JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script defer src="/static/js/location.js"></script>
+{% endblock %}

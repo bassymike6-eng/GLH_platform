@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% block body_class %}faqs-page{% endblock %}
+{% block title %}FAQs | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/faqs.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="faqs-bg"></div>
+
+<div class="faqs-layout">
+
+    <!-- LEFT NAV -->
+    <aside class="faqs-nav">
+        <h2>FAQs</h2>
+        <ul>
+            <li><a href="#s1" class="fnav-link active">Delivery</a></li>
+            <li><a href="#s2" class="fnav-link">Orders</a></li>
+            <li><a href="#s3" class="fnav-link">Products</a></li>
+            <li><a href="#s4" class="fnav-link">Vendors</a></li>
+            <li><a href="#s5" class="fnav-link">Account</a></li>
+            <li><a href="#s6" class="fnav-link">Returns & Refunds</a></li>
+        </ul>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <main class="faqs-content">
+
+        <!-- DELIVERY -->
+        <section id="s1" class="faqs-section">
+            <span class="faqs-tag">Delivery</span>
+            <h2>Delivery</h2>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    Where do you deliver?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>GLH currently delivers to all addresses within the United
+                        Kingdom. We do not currently deliver internationally.
+                        Some remote postcodes in Scotland, the Highlands, and
+                        certain islands may experience longer delivery
+                        times.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    How much does delivery cost?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Standard delivery costs £3.95. Next day delivery is
+                        available for £6.95 on orders placed before 12pm. Orders
+                        over £35 qualify for free standard delivery. Click &
+                        Collect from our Milton Keynes hub is always free.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    Can I collect my order in store?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Yes — our Click & Collect service is free. You can
+                        collect your order from our hub at Chaffron Way, Milton
+                        Keynes, MK6 5LP. Please allow at least 2 hours after
+                        placing your order before collecting. You will receive a
+                        confirmation email when your order is ready.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    When will I receive my order?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Standard delivery takes 2–3 working days. Next day
+                        delivery arrives the following working day if ordered
+                        before 12pm. You will receive a tracking email once your
+                        order has been dispatched so you can follow it in real
+                        time.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    What happens if I miss my delivery?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>If your delivery attempt is unsuccessful, our courier
+                        will leave a card and attempt redelivery the next
+                        working day. After two failed attempts your parcel will
+                        be held at a local collection point for up to 7 days.
+                        Contact us at hello@glh.co.uk if you have any
+                        issues.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDERS -->
+        <section id="s2" class="faqs-section">
+            <span class="faqs-tag">Orders</span>
+            <h2>Orders</h2>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    How do I place an order?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Browse our shop, add items to your basket, and proceed to
+                        checkout. You will need a GLH account to complete a
+                        purchase. If you don't have one yet, you can create one
+                        for free in under 2 minutes.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    Can I cancel or change my order?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>You can cancel or amend your order within 1 hour of
+                        placing it by contacting us at hello@glh.co.uk. After
+                        this time your order may already be in preparation with
+                        the vendor and we cannot guarantee changes can be
+                        made.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    I have an issue with my order — what do I do?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>We're sorry to hear that. Please contact us within 48
+                        hours of receiving your order at hello@glh.co.uk with
+                        your order reference and a description of the issue. We
+                        will resolve it as quickly as possible.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    Can I order from multiple vendors in one basket?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Yes. You can add products from multiple vendors in a
+                        single order. Each vendor will fulfil their part of the
+                        order separately, so you may receive items in separate
+                        packages. Delivery is charged once per order regardless
+                        of the number of vendors.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS -->
+        <section id="s3" class="faqs-section">
+            <span class="faqs-tag">Products</span>
+            <h2>Products</h2>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    Are all products on GLH locally sourced?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Yes. Every product on GLH comes from a verified local
+                        farmer or independent producer. All vendors are reviewed
+                        and approved by our admin team before listing products
+                        on the platform.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    How do I know if a product is in stock?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Stock levels are managed in real time by each vendor
+                        through their dashboard. Products showing low stock will
+                        have an indicator on their listing. Out of stock
+                        products will be clearly marked and cannot be added to
+                        your basket.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    Do products contain allergen information?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Yes. Vendors are required to provide allergen information
+                        for all applicable products. This information is
+                        displayed on each product listing. If you have a
+                        specific allergy concern, please contact us or the
+                        vendor directly before ordering.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VENDORS -->
+        <section id="s4" class="faqs-section">
+            <span class="faqs-tag">Vendors</span>
+            <h2>Vendors</h2>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    How do I become a vendor on GLH?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>You'll need a GLH customer account first. Once you have
+                        one, visit our <a
+                            href="{{ url_for('main.contact') }}#vendor">Contact
+                            page</a> and submit a vendor application. Our admin
+                        team will review your application and respond within 5
+                        working days.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    Is there a fee to sell on GLH?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>GLH operates on a small commission model — we take a
+                        percentage of each sale to cover platform costs. The
+                        exact rate will be communicated to you during the vendor
+                        application process. There are no upfront or monthly
+                        listing fees.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    What happens after my vendor application is approved?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>You will receive a confirmation email and your account
+                        will be upgraded to a vendor account. You can then log
+                        in to your vendor dashboard where you can create your
+                        shop, add products, manage stock, and view orders.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCOUNT -->
+        <section id="s5" class="faqs-section">
+            <span class="faqs-tag">Account</span>
+            <h2>Account</h2>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    How do I create a GLH account?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Click Sign Up from any page on the GLH platform. You'll
+                        need to provide your name, date of birth, and email
+                        address, then verify your email with a one-time code.
+                        The whole process takes under 2 minutes.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    I've forgotten my password — what do I do?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Click Forgot Password on the login page and enter your
+                        email address. We'll send you a verification code. Once
+                        verified, you can set a new password. If you don't
+                        receive the code within a few minutes, check your spam
+                        folder.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    How do I delete my account?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>You can request account deletion by contacting us at
+                        hello@glh.co.uk. We will process your request within 30
+                        days in line with our privacy policy. Please note that
+                        any active orders must be completed before your account
+                        can be deleted.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- RETURNS -->
+        <section id="s6" class="faqs-section">
+            <span class="faqs-tag">Returns & Refunds</span>
+            <h2>Returns & Refunds</h2>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    Can I return a product?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>Due to the perishable nature of most products sold on
+                        GLH, we are unable to accept returns of food items
+                        unless they arrive damaged or incorrect. Non-perishable
+                        items may be returned within 14 days in original
+                        condition. Contact us at hello@glh.co.uk to arrange a
+                        return.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    How do I get a refund?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>If your order arrives damaged, incorrect, or incomplete,
+                        contact us within 48 hours with your order reference and
+                        photos where possible. We will issue a refund or
+                        replacement within 5 working days. Refunds are returned
+                        to your original payment method.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-q">
+                    What if my order never arrived?
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="faq-a">
+                    <p>If your tracking shows delivered but you haven't received
+                        your order, or if it has been more than 5 working days
+                        since dispatch with no update, please contact us
+                        immediately at hello@glh.co.uk. We will investigate and
+                        issue a replacement or full refund.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/faqs.js"></script>
+{% endblock %}

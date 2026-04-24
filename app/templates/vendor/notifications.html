@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block body_class %}dashboard-page vendor-page{% endblock %}
+{% block title %}Notifications | GLH Vendor{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/dashboard.css">
+<link rel="stylesheet" href="/static/css/vendor.css">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-layout">
+    <div class="dash-sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="dash-sidebar">
+        <div class="dash-logo">
+            <span>GLH</span>
+            <span class="dash-logo-sub">Vendor Hub</span>
+        </div>
+        <nav class="dash-nav">
+            <a href="/vendor" class="dash-link">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </a>
+            <a href="/vendor/products" class="dash-link">
+                <i data-lucide="package"></i> Products
+            </a>
+            <a href="/vendor/orders" class="dash-link">
+                <i data-lucide="shopping-bag"></i> Orders
+            </a>
+            <a href="/vendor/notifications" class="dash-link active">
+                <i data-lucide="bell"></i> Notifications
+            </a>
+            <a href="/vendor/settings" class="dash-link">
+                <i data-lucide="settings"></i> Shop Settings
+            </a>
+            <hr style="border-color:rgba(255,255,255,0.07);margin:12px 0;">
+            <a href="/dashboard" class="dash-link">
+                <i data-lucide="user"></i> Customer View
+            </a>
+        </nav>
+        <div class="dash-sidebar-footer">
+            <a href="/logout" class="dash-logout">
+                <i data-lucide="log-out"></i> Log Out
+            </a>
+        </div>
+    </aside>
+
+    <main class="dash-main">
+        <div class="dash-mobile-header">
+            <button id="dashMenuBtn"><i data-lucide="menu"></i></button>
+            <span>Notifications</span>
+        </div>
+
+        <div class="dash-content">
+            <h1 class="dash-page-title">Notifications</h1>
+
+            {% if notifs %}
+            <div class="notif-list">
+                {% for msg in notifs %}
+                <div
+                    class="notif-card {% if not msg.is_read %}unread{% endif %}">
+                    <div class="notif-icon">
+                        {% if msg.form_type == "vendor" %}
+                        <i data-lucide="store"></i>
+                        {% else %}
+                        <i data-lucide="mail"></i>
+                        {% endif %}
+                    </div>
+                    <div class="notif-body">
+                        <div class="notif-top">
+                            <strong>
+                                {% if msg.form_type == "vendor" %}
+                                Vendor Application
+                                {% else %}
+                                General Enquiry
+                                {% endif %}
+                            </strong>
+                            <span class="notif-date">
+                                {{ msg.created_at.strftime('%d %b %Y') }}
+                            </span>
+                        </div>
+                        <p class="notif-preview">{{ msg.message[:120] }}{% if
+                            msg.message|length > 120 %}...{% endif %}</p>
+                        <div class="notif-meta">
+                            <span class="notif-status {{ msg.status }}">
+                                {{ msg.status | capitalize }}
+                            </span>
+                            {% if msg.form_type == "vendor" and msg.status ==
+                            "pending" %}
+                            <span class="notif-hint">Waiting for admin
+                                review</span>
+                            {% elif msg.status == "accepted" %}
+                            <span class="notif-hint" style="color:#4ade80;">✓
+                                Approved by admin</span>
+                            {% elif msg.status == "declined" %}
+                            <span class="notif-hint" style="color:#ef4444;">✗
+                                Declined by admin</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="dash-empty">
+                <i data-lucide="bell-off"></i>
+                <p>No notifications yet</p>
+                <span>Messages from admin and system updates will appear
+                    here</span>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script>
+const dashMenuBtn = document.getElementById("dashMenuBtn");
+const dashSidebar = document.querySelector(".dash-sidebar");
+if (dashMenuBtn && dashSidebar) {
+    dashMenuBtn.addEventListener("click", () => dashSidebar.classList.toggle("open"));
+}
+if (typeof lucide !== "undefined") lucide.createIcons();
+</script>
+{% endblock %}

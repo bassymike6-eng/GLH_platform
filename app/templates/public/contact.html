@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block body_class %}contact-page{% endblock %}
+{% block title %}Contact Us | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/contact.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="contact-bg"></div>
+
+<div class="contact-layout">
+
+    <!-- LEFT NAV -->
+    <aside class="contact-nav">
+        <h2>Get In Touch</h2>
+        <ul>
+            <li>
+                <button class="cnav-btn active" data-tab="general">
+                    <i data-lucide="message-circle"></i>
+                    General Enquiry
+                </button>
+            </li>
+            <li>
+                <button class="cnav-btn" data-tab="vendor">
+                    <i data-lucide="store"></i>
+                    Become a Vendor
+                </button>
+            </li>
+        </ul>
+
+        <div class="contact-aside-info">
+            <div class="aside-item">
+                <i data-lucide="mail"></i>
+                <span>hello@glh.co.uk</span>
+            </div>
+            <div class="aside-item">
+                <i data-lucide="phone"></i>
+                <span>+44 1908 000 000</span>
+            </div>
+            <div class="aside-item">
+                <i data-lucide="map-pin"></i>
+                <span>Chaffron Way, MK6 5LP</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <main class="contact-content">
+
+        <!-- GENERAL ENQUIRY TAB -->
+        <div class="contact-tab active" id="tab-general">
+            <div class="contact-tab-header">
+                <span class="contact-tag">
+                    <i data-lucide="message-circle"></i>
+                    General Enquiry
+                </span>
+                <h2>How can we help?</h2>
+                <p>Fill in the form below and our team will get back to you
+                    within 24 hours.</p>
+            </div>
+
+            <form class="contact-form" id="generalForm"
+                method="POST"
+                action="{{ url_for('main.contact_submit') }}">
+
+                <input type="hidden" name="form_type" value="general">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="full_name"
+                            placeholder="Your full name" required
+                            value="{{ session.get('full_name', '') }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" name="email"
+                            placeholder="your@email.com" required
+                            value="{{ session.get('email', '') }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Subject</label>
+                    <select name="subject" required class="form-select">
+                        <option value disabled selected>Select a
+                            subject</option>
+                        <option value="order">Order Issue</option>
+                        <option value="delivery">Delivery Query</option>
+                        <option value="product">Product / Vendor Query</option>
+                        <option value="account">Account Help</option>
+                        <option value="feedback">Feedback</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- OTHER SUBJECT -->
+                <div class="form-group hidden" id="otherSubjectWrap">
+                    <label>Please specify</label>
+                    <input type="text" name="other_subject"
+                        placeholder="Tell us what it's about">
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" rows="6"
+                        placeholder="Write your message here..."
+                        required></textarea>
+                </div>
+
+                <button type="submit" class="contact-submit">
+                    Send Message
+                    <i data-lucide="send"></i>
+                </button>
+
+            </form>
+        </div>
+
+        <!-- VENDOR APPLICATION TAB -->
+        <div class="contact-tab" id="tab-vendor">
+            <div class="contact-tab-header">
+                <span class="contact-tag">
+                    <i data-lucide="store"></i>
+                    Vendor Application
+                </span>
+                <h2>Sell on GLH</h2>
+                <p>Join our growing community of local farmers and producers.
+                    Tell us about yourself and what you'd like to sell.</p>
+            </div>
+
+            {% if not session.get('user_id') %}
+            <!-- NOT LOGGED IN -->
+            <div class="vendor-auth-gate">
+                <i data-lucide="lock"></i>
+                <h3>You need a GLH account to apply</h3>
+                <p>We use your account details to process your application and
+                    notify you of the outcome. Please sign in or register
+                    first.</p>
+                <div class="vendor-auth-btns">
+                    <a href="{{ url_for('auth.login') }}?next={{ request.path }}" 
+                        class="contact-btn primary">
+                        Sign In
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                    <a href="{{ url_for('auth.signup') }}"
+                        class="contact-btn secondary">
+                        Create Account
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            {% else %}
+            <!-- LOGGED IN — SHOW FORM -->
+            <form class="contact-form" id="vendorForm"
+                method="POST"
+                action="{{ url_for('main.contact_submit') }}">
+
+                <input type="hidden" name="form_type" value="vendor">
+
+                <div class="vendor-prefill">
+                    <i data-lucide="user-check"></i>
+                    Applying as <strong>{{ session.get('full_name',
+                        'GLH Member') }}</strong>
+                    · {{ session.get('email', '') }}
+                </div>
+
+                <div class="form-group">
+                    <label>Business / Farm Name</label>
+                    <input type="text" name="business_name"
+                        placeholder="e.g. Bassy's Farm" required>
+                </div>
+
+                <div class="form-group">
+                    <label>What do you sell?</label>
+                    <select name="product_type" required class="form-select">
+                        <option value disabled selected>Select a
+                            category</option>
+                        <option value="fruits">Fruits</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="meats">Meats & Poultry</option>
+                        <option value="fish">Fish & Seafood</option>
+                        <option value="dairy">Dairy & Eggs</option>
+                        <option value="drinks">Drinks & Juices</option>
+                        <option value="baked">Baked Goods</option>
+                        <option value="nuts">Nuts & Dried Foods</option>
+                        <option value="spices">Herbs & Spices</option>
+                        <option value="mixed">Mixed / Multiple</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group hidden" id="otherProductWrap">
+                    <label>Please specify what you sell</label>
+                    <input type="text" name="other_product"
+                        placeholder="Describe your products">
+                </div>
+
+                <div class="form-group">
+                    <label>Your Location</label>
+                    <input type="text" name="location"
+                        placeholder="e.g. Newport Pagnell, Milton Keynes"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Tell us about yourself and why you want to sell on
+                        GLH</label>
+                    <textarea name="message" rows="7"
+                        placeholder="Talk about your farm or business, what makes your products special, and why you want to become a vendor on GLH..."
+                        required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="agree_terms" required>
+                        <span>I have read and agree to the
+                            <a href="{{ url_for('main.privacy') }}">GLH
+                                guidelines and terms</a>
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="contact-submit">
+                    Submit Application
+                    <i data-lucide="send"></i>
+                </button>
+
+            </form>
+            {% endif %}
+        </div>
+
+    </main>
+</div>
+
+<!-- SUCCESS TOAST -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="contact-flash {{ category }}">
+    <i
+        data-lucide="{{ 'check-circle' if category == 'success' else 'alert-circle' }}"></i>
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/contact.js"></script>
+{% endblock %}

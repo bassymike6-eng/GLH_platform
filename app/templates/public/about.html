@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block body_class %}about-page{% endblock %}
+{% block title %}About Us | GLH{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="/static/css/about.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="about-bg"></div>
+
+<div class="about-layout">
+
+    <!-- LEFT NAV -->
+    <aside class="about-nav">
+        <h2>About GLH</h2>
+        <ul>
+            <li><a href="#s1" class="anav-link active">1. Who We Are</a></li>
+            <li><a href="#s2" class="anav-link">2. Our Mission</a></li>
+            <li><a href="#s3" class="anav-link">3. How It Works</a></li>
+            <li><a href="#s4" class="anav-link">4. Our Vendors</a></li>
+            <li><a href="#s5" class="anav-link">5. Our Community</a></li>
+            <li><a href="#s6" class="anav-link">6. Sustainability</a></li>
+            <li><a href="#s7" class="anav-link">7. Join Us</a></li>
+        </ul>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <main class="about-content">
+
+        <section id="s1" class="about-section">
+            <span class="about-tag">Our Story</span>
+            <h2>1. Who We Are</h2>
+            <p>GLH — Greenfield Local Hub — is a Milton Keynes based cooperative
+                platform connecting local farmers and independent food producers
+                directly with customers in their community. We are not just a
+                delivery service. We are a movement built around the belief that
+                food should be local, honest, and fairly traded.</p>
+            <p>Founded in 2024, GLH was born out of a simple frustration — local
+                farmers and producers had incredible products but no central,
+                modern platform to sell them through. Meanwhile, customers
+                wanted fresher, more ethical alternatives to supermarkets but
+                had nowhere to find them conveniently. GLH bridges that gap.</p>
+        </section>
+
+        <section id="s2" class="about-section">
+            <span class="about-tag">Purpose</span>
+            <h2>2. Our Mission</h2>
+            <p>Our mission is to make local food accessible to everyone while
+                ensuring the people who grow and produce it are fairly
+                compensated. We believe that shortening the supply chain is
+                better for farmers, better for customers, and better for the
+                planet.</p>
+            <div class="about-values">
+                <div class="value-card">
+                    <i data-lucide="heart-handshake"></i>
+                    <strong>Fair Trade</strong>
+                    <span>Vendors keep the majority of every sale</span>
+                </div>
+                <div class="value-card">
+                    <i data-lucide="leaf"></i>
+                    <strong>Local First</strong>
+                    <span>Every product on GLH comes from within our
+                        region</span>
+                </div>
+                <div class="value-card">
+                    <i data-lucide="users"></i>
+                    <strong>Community</strong>
+                    <span>Built by and for the Milton Keynes community</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="s3" class="about-section">
+            <span class="about-tag">The Process</span>
+            <h2>3. How It Works</h2>
+            <p>GLH operates as both a physical hub and a digital marketplace. At
+                our Milton Keynes location, vendors bring their produce and
+                products to a central space where customers can shop in person.
+                Our online platform extends this — letting customers browse,
+                order, and have products delivered from the same trusted
+                vendors.</p>
+            <div class="about-steps">
+                <div class="step">
+                    <span class="step-num">01</span>
+                    <div>
+                        <strong>Vendors apply</strong>
+                        <p>Local farmers and producers apply through our contact
+                            page. Our admin team reviews and approves
+                            applications.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">02</span>
+                    <div>
+                        <strong>Products go live</strong>
+                        <p>Approved vendors list their products on the GLH
+                            platform with prices, descriptions, and stock
+                            levels.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">03</span>
+                    <div>
+                        <strong>Customers order</strong>
+                        <p>Customers browse, favourite, and order products for
+                            delivery or collection from our hub.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <span class="step-num">04</span>
+                    <div>
+                        <strong>Vendors fulfil</strong>
+                        <p>Orders go directly to the vendor who fulfils and
+                            dispatches. GLH handles payments and customer
+                            support.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s4" class="about-section">
+            <span class="about-tag">Our People</span>
+            <h2>4. Our Vendors</h2>
+            <p>Every vendor on GLH is independently verified by our admin team.
+                We work exclusively with local farmers, smallholders, artisan
+                food producers, and independent drink makers based in and around
+                Milton Keynes and the surrounding counties.</p>
+            <p>Vendors on our platform range from small family-run farms
+                supplying seasonal vegetables, to independent meat suppliers,
+                dairy producers, bakers, and drinks makers. Each vendor has
+                their own storefront on GLH so customers always know exactly who
+                they are buying from and where their food comes from.</p>
+            <p>Interested in selling on GLH? Visit our <a href="#">contact
+                    page</a> to apply.</p>
+        </section>
+
+        <section id="s5" class="about-section">
+            <span class="about-tag">Roots</span>
+            <h2>5. Our Community</h2>
+            <p>GLH is deeply rooted in the Milton Keynes community. We partner
+                with local schools, colleges, and community organisations to run
+                food education events, farm visits, and seasonal markets. We
+                believe that reconnecting people with where their food comes
+                from creates healthier communities and more sustainable food
+                systems.</p>
+            <p>A portion of every transaction on GLH goes into a community fund
+                used to support local food banks, school nutrition programmes,
+                and agricultural training for young people in our region.</p>
+        </section>
+
+        <section id="s6" class="about-section">
+            <span class="about-tag">Environment</span>
+            <h2>6. Sustainability</h2>
+            <p>Sustainability is not a marketing term for us — it is a core
+                operating principle. By connecting customers directly to local
+                producers, we eliminate unnecessary supply chain steps that
+                generate carbon emissions. All deliveries made through GLH are
+                optimised by zone to minimise vehicle journeys.</p>
+            <p>We actively encourage vendors to use recyclable and compostable
+                packaging and provide guidance and resources to help them do so.
+                Our physical hub is operated using renewable energy and we are
+                working towards becoming a fully carbon-neutral operation by
+                2027.</p>
+        </section>
+
+        <section id="s7" class="about-section">
+            <span class="about-tag">Get Involved</span>
+            <h2>7. Join Us</h2>
+            <p>Whether you are a local farmer wanting to reach more customers, a
+                food lover who wants fresher produce, or someone who believes in
+                building stronger local economies — GLH is for you.</p>
+            <div class="about-ctas">
+                <a href="{{ url_for('main.shop') }}" class="about-btn primary">
+                    <i data-lucide="shopping-basket"></i>
+                    Shop Now
+                </a>
+                <a href="#" class="about-btn secondary">
+                    <i data-lucide="store"></i>
+                    Become a Vendor
+                </a>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+{% endblock %}
+
+{% block page_js %}
+<script defer src="/static/js/about.js"></script>
+{% endblock %}
